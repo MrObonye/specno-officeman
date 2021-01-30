@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "officeman"
+    }
+  },
+  "defaultProject": "officeman",
+  "cli": {
+    "analytics": false
+  }
 }
