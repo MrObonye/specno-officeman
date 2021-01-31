@@ -35,22 +35,51 @@ nav {
   border-radius: 5px;
   width: 15%;
   color: white;
-  .icon-thumbnail{
+  line-height: 24px;
+  .icon-thumbnail {
     position: absolute;
-    top: 50%;
-      left: 25%;
-  transform: translateY(-50%);
+    top: 60%;
+    left: 25%;
+    transform: translateY(-50%);
   }
 
   fa-icon {
     color: white;
   }
+  .max-number {
+    font-size: 10px;
+    font-weight: 600;
+  }
 }
 .contact {
   position: relative;
   background-color: whitesmoke;
+  text-align: left;
+  width: 85%;
+  .card-body {
+    position: relative;
+    padding: 5px;
+    line-height: 8px;
+    width: 100%;
+    .card-text {
+      font-weight: 600;
+    }
+  }
+
+  &__card__right {
+    position: relative;
+    width: 50%;
+  }
 }
 .fit-to-parent {
   position: relative;
   height: 100%;
 }
+  .right {
+	margin-right: -100px;
+	margin-left: 85px;
+}
+.card-text{
+  color: grey;
+}
+

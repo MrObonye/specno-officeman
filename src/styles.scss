@@ -23,4 +23,9 @@ body {
   &.noscroll {
     overflow: hidden;
   }
+  a,
+a:visited,
+a:hover {
+  text-decoration: none;
+}
 }

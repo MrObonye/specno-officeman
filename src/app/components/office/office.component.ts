@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCoffee, faEllipsisV, faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV, faPhoneAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-office',
@@ -7,7 +7,7 @@ import { faCoffee, faEllipsisV, faPhoneAlt } from '@fortawesome/free-solid-svg-i
   styleUrls: ['./office.component.scss'],
 })
 export class OfficeComponent implements OnInit {
-  faCoffee = faCoffee;
+  faCoffee = faUserFriends;
   faEllipsisV = faEllipsisV;
   faPhone = faPhoneAlt;
   constructor() {}
