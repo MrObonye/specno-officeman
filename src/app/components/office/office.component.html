@@ -20,12 +20,30 @@
             <div class="d-flex flex-column justify-content-between">
               <h5 class="card-title mt-2 ml-2 mb-0">Office name</h5>
               <small class="card-text fw-lighter ml-2 mt-0">Address</small>
-              <small class="card-text__email mb-3 ml-2 text-primary">info@example.com</small>
+              <small class="card-text__email mb-3 ml-2 text-primary"
+                >info@example.com</small
+              >
             </div>
             <div class="d-flex flex-column justify-content-between">
-              <a href="#" class="d-flex align-self-end mb-4"><fa-icon [icon]="faEllipsisV"></fa-icon></a>
-              <div></div>
-              <p class="card-text__email mt-3 d-flex align-self-end small text-primary"><fa-icon [icon]="faPhone" class="pr-2 text-dark"></fa-icon> 08000 0000</p>
+             <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+    <li><a class="dropdown-item active" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+</div>
+              <p
+                class="card-text__email mt-3 d-flex align-self-end small text-primary"
+              >
+                <fa-icon [icon]="faPhone" class="pr-2 text-dark"></fa-icon>
+                08000 0000
+              </p>
+              <i class="fab fa-500px"></i>
             </div>
           </div>
         </div>
