@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { faEllipsisV, faPhoneAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { OfficeComponent } from './office/office.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -17,7 +18,7 @@ import { RouterModule } from '@angular/router';
     ComponentsRoutingModule,
     FontAwesomeModule,
     RouterModule,
-  ],
+    NgbModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ComponentsModule {

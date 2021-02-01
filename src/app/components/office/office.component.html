@@ -5,12 +5,12 @@
   </div>
 </nav>
 
-<ul class="list-group mt-5">
+<ul class="list-group mt-4">
   <li class="list-group-item card shadow">
     <div class="d-flex flex-row flex-wrap fit-to-parent">
       <div class="icon-max fit-to-parent">
         <span class="icon-thumbnail"
-          ><fa-icon [icon]="faCoffee"></fa-icon>
+          ><i class="fas fa-user-friends"></i>
           <p class="max-number">08/09</p></span
         >
       </div>
@@ -18,32 +18,40 @@
         <div class="card-body fit-to-parent">
           <div class="d-flex flex-row w-100 justify-content-between">
             <div class="d-flex flex-column justify-content-between">
-              <h5 class="card-title mt-2 ml-2 mb-0">Office name</h5>
+              <h5 class="card-title mt-2 ml-2 mb-0">Office Name</h5>
               <small class="card-text fw-lighter ml-2 mt-0">Address</small>
               <small class="card-text__email mb-3 ml-2 text-primary"
                 >info@example.com</small
               >
             </div>
             <div class="d-flex flex-column justify-content-between">
-             <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
-  </button>
-  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-    <li><a class="dropdown-item active" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Separated link</a></li>
-  </ul>
-</div>
+              <div class="col text-right">
+                <div
+                  ngbDropdown
+                  placement="bottom-right"
+                  class="d-inline-block"
+                >
+                  <a
+                    href="javascript:void(0);"
+                    class="text-dark"
+                    id="dropdownBasic2"
+                    ngbDropdownToggle
+                    (click)="changeType(1)"
+                  >
+                    <i [ngClass]="toggle1 ? 'fas fa-times': 'fas fa-ellipsis-v'"></i>
+              </a>
+                  <div ngbDropdownMenu aria-labelledby="">
+                    <button ngbDropdownItem class="d-flex flex-row flex-wrap justify-content-between" (click)="changeType(1)">Edit <i class="fas fa-pen"></i></button>
+                    <button ngbDropdownItem class="d-flex flex-row justify-content-between" (click)="changeType(1)">Remove <i class="fas fa-minus-circle"></i></button>
+                  </div>
+                </div>
+              </div>
               <p
                 class="card-text__email mt-3 d-flex align-self-end small text-primary"
               >
                 <fa-icon [icon]="faPhone" class="pr-2 text-dark"></fa-icon>
                 08000 0000
               </p>
-              <i class="fab fa-500px"></i>
             </div>
           </div>
         </div>

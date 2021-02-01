@@ -20,7 +20,7 @@ nav {
 }
 .list-group-item {
   margin-left: 16px;
-  margin-right: 16px;
+  margin-right: 18px;
   padding: 0;
   height: 90px;
   text-align: center;
@@ -59,7 +59,7 @@ nav {
   .card-body {
     position: relative;
     padding: 5px;
-    line-height: 8px;
+    line-height: 14px;
     width: 100%;
     .card-text {
       font-weight: 600;
@@ -82,4 +82,12 @@ nav {
 .card-text{
   color: grey;
 }
+.dropdown-toggle::after {
+    display: none;
+}
+.fa-ellipsis-v{
 
+&::after:active {
+  content: "\f00d"
+}
+}
