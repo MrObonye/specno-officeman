@@ -1,7 +1,8 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { faEllipsisV, faPhoneAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { OfficeComponent } from './office-list/office/office.component';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 
 import { ComponentsRoutingModule } from './components-routing.module';
