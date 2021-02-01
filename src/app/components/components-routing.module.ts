@@ -1,4 +1,4 @@
-import { OfficeComponent } from './office/office.component';
+import { OfficeComponent } from './components/office-list/office/office.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
