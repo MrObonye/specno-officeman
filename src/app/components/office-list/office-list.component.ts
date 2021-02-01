@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OfficeEditComponent } from './office-edit/office-edit.component';
 
 @Component({
   selector: 'app-office-list',
@@ -11,5 +12,4 @@ export class OfficeListComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

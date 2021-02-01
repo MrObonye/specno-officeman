@@ -11,17 +11,23 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { RouterModule } from '@angular/router';
 import { OfficeListComponent } from './office-list/office-list.component';
 import { StaffEditComponent } from './staff-list/staff-edit/staff-edit.component';
+import { OfficeEditComponent } from './office-list/office-edit/office-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from './modal/modal.module';
 
 
 
 @NgModule({
-  declarations: [OfficeComponent, OfficeListComponent, StaffEditComponent],
+  declarations: [OfficeComponent, OfficeListComponent, StaffEditComponent, OfficeEditComponent],
   imports: [
     CommonModule,
     ComponentsRoutingModule,
     FontAwesomeModule,
     RouterModule,
-    NgbModule],
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
+    ModalModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ComponentsModule {
