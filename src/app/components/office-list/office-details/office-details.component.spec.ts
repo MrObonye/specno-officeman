@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { OfficeEditComponent } from './office-edit.component';
+import { OfficeEditComponent } from './office-details.component';
 
 describe('OfficeEditComponent', () => {
   let component: OfficeEditComponent;

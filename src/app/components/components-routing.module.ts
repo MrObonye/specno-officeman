@@ -1,4 +1,4 @@
-import { OfficeEditComponent } from './office-list/office-edit/office-edit.component';
+import { OfficeEditComponent } from './office-list/office-details/office-details.component';
 import { OfficeListComponent } from './office-list/office-list.component';
 import { OfficeComponent } from './office-list/office/office.component';
 

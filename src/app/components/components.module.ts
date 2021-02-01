@@ -11,7 +11,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { RouterModule } from '@angular/router';
 import { OfficeListComponent } from './office-list/office-list.component';
 import { StaffEditComponent } from './staff-list/staff-edit/staff-edit.component';
-import { OfficeEditComponent } from './office-list/office-edit/office-edit.component';
+import { OfficeEditComponent } from './office-list/office-details/office-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from './modal/modal.module';
 
