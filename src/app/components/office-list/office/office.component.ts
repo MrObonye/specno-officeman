@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faEllipsisV, faPhoneAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,11 +12,14 @@ export class OfficeComponent implements OnInit {
   faEllipsisV = faEllipsisV;
   faPhone = faPhoneAlt;
   toggle1 = false;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
-  changeType( num: number) {
+  changeType( num: number): void {
 
     if (num === 1) { this.toggle1 = !this.toggle1; }
+  }
+  openOffice(): void {
+    this.router.navigate(['./']);
   }
 }

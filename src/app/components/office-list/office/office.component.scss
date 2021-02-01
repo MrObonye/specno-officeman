@@ -83,6 +83,7 @@ nav {
   color: grey;
 }
 .dropdown-toggle::after {
+    content: "";
     display: none;
 }
 .fa-ellipsis-v{
