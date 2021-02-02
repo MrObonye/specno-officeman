@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Office } from 'src/app/models/office.model';
 import { ModalService } from '../services/modal.service';
+import { OfficemanService } from '../services/officeman.service';
 
 @Component({
   selector: 'app-office-list',
@@ -10,8 +11,9 @@ import { ModalService } from '../services/modal.service';
 })
 export class OfficeListComponent implements OnInit {
   addOfficeForm: FormGroup;
+  officesOutput: Office[];
 
-  constructor(private modalService: ModalService, private readonly fb: FormBuilder) {
+  constructor(private modalService: ModalService, private readonly fb: FormBuilder, private officeManService: OfficemanService) {
    }
 
   ngOnInit(): void {
@@ -23,6 +25,10 @@ export class OfficeListComponent implements OnInit {
       maxOccupants: new FormControl(''),
       officeColor: new FormControl('')
     });
+    if(this.officesOutput) {
+      this.officesOutput = [];
+    }
+    this.officesOutput = this.officeManService.retrieveOffices();
   }
   get f() {
     return this.addOfficeForm.controls;
@@ -34,6 +40,6 @@ export class OfficeListComponent implements OnInit {
     this.modalService.close(id);
   }
   saveOffice(formValue: Office): void {
-    console.log(formValue);
+    this.officeManService.addOffice(formValue);
   }
 }

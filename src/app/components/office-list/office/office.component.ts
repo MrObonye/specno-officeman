@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faEllipsisV, faPhoneAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import { Office } from 'src/app/models/office.model';
+import { Offices } from 'src/app/temp-data/db';
 import { ModalService } from '../../services/modal.service';
 
 @Component({
@@ -9,32 +11,45 @@ import { ModalService } from '../../services/modal.service';
   styleUrls: ['./office.component.scss'],
 })
 export class OfficeComponent implements OnInit {
-  faCoffee = faUserFriends;
-  faEllipsisV = faEllipsisV;
-  faPhone = faPhoneAlt;
-  toggle1 = false;
-  constructor(private router: Router, private modalService: ModalService) { }
+  toggle1 = true;
+  editOfficeForm: FormGroup;
+  @Input() offices: Office[];
+  constructor(private router: Router, private modalService: ModalService, private readonly fb: FormBuilder) {
+   }
 
-  ngOnInit(): void { }
-  changeType(num: number): void {
-    if (num === 1) { this.toggle1 = !this.toggle1; }
+  ngOnInit(): void {
+    this.editOfficeForm = this.fb.group({
+      officeName: new FormControl(''),
+      email: new FormControl(''),
+      officeTel: new FormControl(''),
+      address: new FormControl(''),
+      maxOccupants: new FormControl(''),
+      officeColor: new FormControl('')
+    });
+  }
+  get f() {
+    return this.editOfficeForm.controls;
+  }
+  changeType(): void {
+    this.toggle1 = !this.toggle1;
   }
   openOffice(id: number): void {
     console.log('open office details');
     this.router.navigate([`./office/${id}`]);
   }
 
-  saveOffice(): void {
-    console.log('saving office at office-item');
+  saveOffice(formValues: Office): void {
+    console.log(formValues);
   }
-  openModal(id: string, num: number): void {
-    console.log(id);
+  removeOffice(id: string): void {
+    console.log(`remove this item from db ${id}`);
+  }
+  openModal(id: string): void {
+    this.toggle1 = !this.toggle1;
     this.modalService.open(id);
-    if (num === 1) { this.toggle1 = !this.toggle1; }
   }
-  closeModal(id: string, num: number): void {
-    console.log(id);
+  closeModal(id: string): void {
+    this.toggle1 = !this.toggle1;
     this.modalService.close(id);
-    if (num === 1) { this.toggle1 = !this.toggle1; }
   }
 }
