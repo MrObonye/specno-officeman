@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Office } from 'src/app/models/office.model';
 import { Offices } from 'src/app/temp-data/db';
 import { ModalService } from '../../services/modal.service';
+import { OfficemanService } from '../../services/officeman.service';
 
 @Component({
   selector: 'app-office',
@@ -14,8 +15,15 @@ export class OfficeComponent implements OnInit {
   toggle1 = true;
   editOfficeForm: FormGroup;
   @Input() offices: Office[];
-  constructor(private router: Router, private modalService: ModalService, private readonly fb: FormBuilder) {
-   }
+  officeName: string;
+  id: string;
+  constructor(
+    private router: Router,
+    private modalService: ModalService,
+    private readonly fb: FormBuilder,
+    private officeMan: OfficemanService
+  ) {
+  }
 
   ngOnInit(): void {
     this.editOfficeForm = this.fb.group({
@@ -30,26 +38,40 @@ export class OfficeComponent implements OnInit {
   get f() {
     return this.editOfficeForm.controls;
   }
-  changeType(): void {
-    this.toggle1 = !this.toggle1;
+  changeType( num: number): void {
+
+    if (num === 1) { this.toggle1 = !this.toggle1; }
   }
-  openOffice(id: number): void {
-    console.log('open office details');
+  openOffice(id: string): void {
+    console.log(id);
     this.router.navigate([`./office/${id}`]);
   }
 
   saveOffice(formValues: Office): void {
-    console.log(formValues);
+    this.officeMan.editOffice(formValues);
   }
-  removeOffice(id: string): void {
-    console.log(`remove this item from db ${id}`);
+  removeOffice(): void {
+    this.officeMan.removeOffice(this.id);
+    console.log(`remove this item from db ${this.id}`);
   }
-  openModal(id: string): void {
-    this.toggle1 = !this.toggle1;
+  openModal(id: string, office: Office): void {
+    console.log(office);
+    // this.officeMan.broadcastOffice(office);
+    this.f.officeName.setValue(office.officeName);
+    this.f.email.setValue(office.email);
+    this.f.address.setValue(office.address);
+    this.f.maxOccupants.setValue(office.maxOccupants);
+    this.f.officeColor.setValue(office.officeColor);
+    this.f.officeTel.setValue(office.officeTel);
     this.modalService.open(id);
   }
+  openModalDel(modalId: string, officeId: string, officeName: string): void {
+    this.id = modalId;
+    this.officeName = officeName;
+    this.id = officeId;
+    this.modalService.open(modalId);
+  }
   closeModal(id: string): void {
-    this.toggle1 = !this.toggle1;
     this.modalService.close(id);
   }
 }

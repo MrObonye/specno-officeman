@@ -4,7 +4,7 @@ import { Staff } from 'src/app/models/staff.model';
 
 import { AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireList } from '@angular/fire/database';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -13,10 +13,14 @@ import { map } from 'rxjs/operators';
 export class OfficemanService {
   // offices: AngularFireList<Office[]>
   data = [];
+  private office = new BehaviorSubject<Office>(new Office());
+  office$ = this.office.asObservable();
 
   constructor(public db: AngularFireDatabase) {
     db.list('/offices').snapshotChanges().subscribe(res => res.forEach( item => {
-      this.data.push(item.payload.toJSON() as Office);
+      const office = item.payload.toJSON();
+      office['id'] = item.key;
+      this.data.push(office as Office);
     }));
   }
   public editOffice(office: Office): void {
@@ -42,5 +46,8 @@ export class OfficemanService {
   }
   public retrieveOffices(): Office[] {
     return this.data;
+  }
+  broadcastOffice(office: Office): void {
+    this.office.next(office);
   }
 }

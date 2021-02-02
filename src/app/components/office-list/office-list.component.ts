@@ -25,9 +25,7 @@ export class OfficeListComponent implements OnInit {
       maxOccupants: new FormControl(''),
       officeColor: new FormControl('')
     });
-    if(this.officesOutput) {
-      this.officesOutput = [];
-    }
+
     this.officesOutput = this.officeManService.retrieveOffices();
   }
   get f() {

@@ -1,7 +1,7 @@
 <ul class="list-group mt-4">
   <li class="list-group-item card shadow" *ngFor="let office of offices" >
     <div class="d-flex flex-row flex-wrap fit-to-parent">
-      <div class="icon-max fit-to-parent" (click)="openOffice(1)">
+      <div class="icon-max fit-to-parent" (click)="openOffice(office.id)">
         <span class="icon-thumbnail"
           ><i class="fas fa-user-friends"></i>
           <p class="max-number">{{office.maxOccupants}}</p></span
@@ -29,14 +29,14 @@
                     class="text-dark d-flex flex-column align-self-end"
                     id="dropdownBasic2"
                     ngbDropdownToggle
-                    (click)="changeType()"
+                    (click)="changeType(1)"
                     [ngClass]="toggle1 ? 'fas fa-ellipsis-v': 'fas fa-times'"
                   >
 
               </a>
                   <div ngbDropdownMenu aria-labelledby="" class="box-menu">
-                    <button ngbDropdownItem class="d-flex flex-row flex-wrap justify-content-between " (click)="openModal('custom-modal-2')">Edit <i class="fas fa-pen"></i></button>
-                    <button ngbDropdownItem class="d-flex flex-row   flex-wrap justify-content-between" (click)="openModal('custom-modal-3')">Remove <i class="fas fa-minus-circle"></i></button>
+                    <button ngbDropdownItem class="d-flex flex-row flex-wrap justify-content-between " (click)="openModal('custom-modal-2', office)">Edit <i class="fas fa-pen"></i></button>
+                    <button ngbDropdownItem class="d-flex flex-row   flex-wrap justify-content-between" (click)="openModalDel('custom-modal-3', office.id, office.officeName)">Remove <i class="fas fa-minus-circle"></i></button>
                   </div>
                 </div>
               </div>
@@ -55,7 +55,7 @@
 </ul>
 <!-- edit office modal -->
 
-<app-modal id="custom-modal-2">
+<app-modal id="custom-modal-2" >
   <a class="close custom-modal__close" (click)="closeModal('custom-modal-2')">&times;</a>
   <h3  class="custom-modal__title">Edit Office</h3>
   <!-- Form -->
@@ -114,8 +114,8 @@
   <a class="close custom-modal__close" (click)="closeModal('custom-modal-3');">&times;</a>
   <h3 class="custom-modal__title">Remove Office</h3>
   <h6>Are you sure you want to <strong class="text-danger">Remove</strong ></h6>
-  <h5 class="custom-modal__name text-danger">Office Name</h5>
+  <h5 class="custom-modal__name text-danger">{{officeName}}</h5>
   
-  <button (click)="removeOffice('id')" class="btn btn-danger">Remove</button>
+  <button (click)="removeOffice()" class="btn btn-danger">Remove</button>
 </app-modal>
 <!-- end of remove office -->
