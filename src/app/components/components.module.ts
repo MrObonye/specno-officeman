@@ -10,25 +10,25 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { RouterModule } from '@angular/router';
 import { OfficeListComponent } from './office-list/office-list.component';
-import { StaffEditComponent } from './staff-list/staff-edit/staff-edit.component';
-import { OfficeEditComponent } from './office-list/office-details/office-details.component';
+import {OfficeDetailsComponent} from './office-list/office-details/office-details.component';
+
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from './modal/modal.module';
+import { StaffComponent } from './staff/staff.component';
 
 
 
 @NgModule({
-  declarations: [OfficeComponent, OfficeListComponent, StaffEditComponent, OfficeEditComponent],
+  declarations: [OfficeComponent, OfficeListComponent, OfficeDetailsComponent, StaffComponent],
   imports: [
     CommonModule,
     ComponentsRoutingModule,
     FontAwesomeModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule,
     NgbModule,
     ModalModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ComponentsModule {
   constructor() {

@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-office-edit',
-  templateUrl: './office-edit.component.html',
-  styleUrls: ['./office-edit.component.scss']
+  selector: 'app-office-details',
+  templateUrl: './office-details.component.html',
+  styleUrls: ['./office-details.component.scss']
 })
-export class OfficeEditComponent implements OnInit {
+export class OfficeDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {

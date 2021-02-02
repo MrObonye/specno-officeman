@@ -4,23 +4,44 @@
     <button class="button" (click)="openModal('custom-modal-1')">Add Office</button>
   </div>
 </nav>
+<!-- add office modal -->
 <app-modal id="custom-modal-1">
   <a class="close" (click)="closeModal('custom-modal-1');">&times;</a>
   <h3 class="modal-title">Add Office</h3>
-  <input type="text" class="form-control" placeholder="Office Name"/>
-  <input type="text" class="form-control" placeholder="Email Address"/>
-  <input type="text" class="form-control" placeholder="Address"/>
-  <input type="text" class="form-control" placeholder="Max number of occupants"/>
-  <select class="form-select" aria-label="Default select example">
-    <option selected>office color</option>
-    <option value="1">One</option>
-    <option value="2">Two</option>
-    <option value="3">Three</option>
-  </select>
+  <!-- Form -->
+  <form  [formGroup]="addOfficeForm" (ngSubmit)="saveOffice(addOfficeForm.value)">
+    <label>
+      <input type="text" class="form-control" [formControlName]="'officeName'" placeholder="Office Name"/>
+    </label>
+    
+    <label>
+      <input type="text" class="form-control" [formControlName]="'email'" placeholder="Email Address"/>
+    </label>
+    
+    <label>
+      <input type="text" class="form-control" [formControlName]="'address'" placeholder="Address"/>
+    </label>
+    
+    <label>
+      <input type="text" class="form-control" [formControlName]="'maxOccupants'" placeholder="Max number of occupants"/>
+    </label>
+    <select class="form-select" aria-label="office color" [formControlName]="'officeColor'">
+      <option selected>office color</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <button type="submit" class="save-button" >Save Office</button>
+  </form>
+ 
   
-  <button (click)="saveOffice()" class="btn btn-primary p-2">Save Office</button>
+  
 </app-modal>
+<!-- end of add office modal -->
 
+
+
+<!-- office item -->
 <app-office></app-office>
 <app-office></app-office>
 <app-office></app-office>

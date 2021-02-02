@@ -18,7 +18,7 @@ app-modal {
       bottom: 0;
       left: 0;
   
-      /* z-index must be higher than .jw-modal-background */
+      /* z-index must be higher than modal-background */
       z-index: 1000;
   
       /* enables scrolling for tall modals */
@@ -45,7 +45,7 @@ app-modal {
       background-color: #000;
       opacity: 0.75;
   
-      /* z-index must be below .jw-modal and above everything else  */
+      /* z-index must be below .modal and above everything else  */
       z-index: 900;
     }
   }
