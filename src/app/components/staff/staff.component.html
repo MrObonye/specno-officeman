@@ -50,7 +50,7 @@
                     </a>
                         <div ngbDropdownMenu aria-labelledby="" class="box-menu">
                           <button ngbDropdownItem class="d-flex flex-row flex-wrap justify-content-between " (click)="openModalEdit('custom-modal-2', staff)">Edit <i class="fas fa-pen"></i></button>
-                          <button ngbDropdownItem class="d-flex flex-row   flex-wrap justify-content-between" (click)="openModalDel('custom-modal-3', 'staff')">Remove <i class="fas fa-minus-circle"></i></button>
+                          <button ngbDropdownItem class="d-flex flex-row   flex-wrap justify-content-between" (click)="openModalDel('custom-modal-3', staff)">Remove <i class="fas fa-minus-circle"></i></button>
                         </div>
                       </div>
                     </div>
@@ -125,9 +125,9 @@
   <!-- remove office modal -->
   <app-modal id="custom-modal-3">
     <a class="close custom-modal__close" (click)="closeModal('custom-modal-3');">&times;</a>
-    <h3 class="custom-modal__title">Remove Office</h3>
+    <h3 class="custom-modal__title">Remove Staff</h3>
     <h6>Are you sure you want to <strong class="text-danger">Remove</strong ></h6>
-    <h5 class="custom-modal__name text-danger">{{''}}</h5>
+    <h5 class="custom-modal__name text-danger">{{staffName}}</h5>
     
     <button (click)="removeStaff()" class="btn btn-danger">Remove</button>
   </app-modal>

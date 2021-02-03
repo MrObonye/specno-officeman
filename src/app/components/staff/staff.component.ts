@@ -19,6 +19,7 @@ export class StaffComponent implements OnInit {
   lastKeypress = 0;
   toggle1 = true;
   staffForm: FormGroup;
+  staffName: string;
 
   constructor(
     private searchService: SearchService,
@@ -58,8 +59,10 @@ export class StaffComponent implements OnInit {
     this.modalService.open(id);
     console.log(staff);
   }
-  openModalDel(id: string, staff: string): void {
-    console.log(id, staff);
+  openModalDel(id: string, staff: Staff): void {
+    this.officeManService.removeStaff(staff);
+    this.staffName = `${staff.firstName} ${staff.lastName}` ;
+    this.modalService.open(id);
 
   }
   changeType(num: number): void {
