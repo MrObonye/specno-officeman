@@ -1,11 +1,68 @@
 <nav class="navbar shadow">
   <div class="container-fluid">
     <a class="navbar-brand text-white" href="#"> Office Man </a>
-    <button class="button">Add Office</button>
+    <button class="button" (click)="openModal('custom-modal-1')">Add Office</button>
   </div>
 </nav>
-<app-office></app-office>
-<app-office></app-office>
-<app-office></app-office>
-<app-office></app-office>
-<app-office></app-office>
+<!-- add office modal -->
+<app-modal id="custom-modal-1">
+  <a class="close custom-modal__close" (click)="closeModal('custom-modal-1');">&times;</a>
+  <h3 class="custom-modal__title">Add Office</h3>
+  <!-- Form -->
+  <form [formGroup]="addOfficeForm" (ngSubmit)="saveOffice(addOfficeForm.value)" class="custom-modal__form">
+    <div class="row form-group justify-content-center" >
+      <label>
+        <input type="text" class="custom-modal__form-control" [formControlName]="'officeName'"
+          placeholder="Office Name" />
+      </label>
+    </div>
+
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="text" class="custom-modal__form-control" [formControlName]="'email'" placeholder="Email Address" />
+      </label>
+    </div>
+
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="text" class="custom-modal__form-control" [formControlName]="'officeTel'" placeholder="Office Tel" />
+      </label>
+    </div>
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="text" class="custom-modal__form-control" [formControlName]="'address'" placeholder="Address" />
+      </label>
+    </div>
+
+
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="text" class="custom-modal__form-control" [formControlName]="'maxOccupants'"
+          placeholder="Max number of occupants" />
+      </label>
+    </div>
+    <div class="row form-group justify-content-center">
+        <select class="custom-modal__form-select " aria-label="office color" [formControlName]="'officeColor'">
+          <option value="" selected disabled hidden>Office color</option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="greed">Greed</option>
+          <option value="yellow">Yellow</option>
+          <option value="purple">Purple</option>
+          <option value="pink">Pink</option>
+        </select>
+      
+    </div>
+
+    <button type="submit" class="custom-modal__save-button">Save Office</button>
+  </form>
+
+
+
+</app-modal>
+<!-- end of add office modal -->
+
+
+
+<!-- office item -->
+<app-office [offices]="officesOutput"></app-office>

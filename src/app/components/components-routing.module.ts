@@ -1,17 +1,14 @@
-import { OfficeEditComponent } from './office-list/office-edit/office-edit.component';
-import { OfficeListComponent } from './office-list/office-list.component';
-import { OfficeComponent } from './office-list/office/office.component';
+
+import { OfficeDetailsComponent } from './office-list/office-details/office-details.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { OfficeListComponent } from './office-list/office-list.component';
 
 
 const routes: Routes = [
-  { path: '', component: OfficeListComponent, children: [
-    {path: 'office', component: OfficeComponent},
-    {path: 'edit', component: OfficeEditComponent},
-    {path: 'new', component: OfficeEditComponent }
-  ] }
+  { path: '', component: OfficeListComponent },
+  { path: 'office/:id', component: OfficeDetailsComponent }
 ];
 
 @NgModule({
