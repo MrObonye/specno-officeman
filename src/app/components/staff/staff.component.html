@@ -4,7 +4,7 @@
         <div class='col-md-6'>
           <div class='search-box'>
             <form class='search-form'>
-              <input class='form-control' type='text'>
+              <input class='form-control' placeholder="search" type='text'>
               <button class='btn btn-link search-btn'>
                 <i class="fa fa-search"></i>
               </button>
@@ -12,14 +12,123 @@
           </div>
         </div>
       </div>
+      <div class="row mt-3">
+        <div class="staff-members col-8 text-dark text-left m-4">
+            <p class="text-dark">Staff Members 08/09</p>
+        </div>
+        <button class="btn btn-raised btn-light shadow staff-button" (click)="openModal('custom-modal-4')">Add Staff</button>
+      </div>
+
    <ul *ngFor="let staff of staffMembers">
-       <li><p>{{staff.firstName + ' ' + staff.lastName}}</p></li>
+       <li>
+        <div class="d-flex flex-row flex-wrap fit-to-parent text-dark">
+            <div class="icon-thumbnail bg-primary text-white">
+                <i class="fas fa-user icon"></i>
+            </div>
+            <div class="contact fit-to-parent">
+              <div class="card-body fit-to-parent">
+                <div class="d-flex flex-row w-100 justify-content-between">
+                  <div class="d-flex flex-column justify-content-between">
+                    <small class="card-text fw-lighter ml-2 mt-0">{{staff.firstName + ' ' + staff.lastName}}</small>
+                  </div>
+                  <div class="d-flex flex-column justify-content-between">
+                    <div class="col text-right">
+                      <div
+                        ngbDropdown
+                        placement="bottom-right"
+                        class="d-inline-block"
+                      >
+                        <a
+                          href="javascript:void(0);"
+                          class="text-dark d-flex flex-column align-self-end"
+                          id="dropdownBasic2"
+                          ngbDropdownToggle
+                          (click)="changeType(1)"
+                          [ngClass]="toggle1 ? 'fas fa-ellipsis-v': 'fas fa-times'"
+                        >
+      
+                    </a>
+                        <div ngbDropdownMenu aria-labelledby="" class="box-menu">
+                          <button ngbDropdownItem class="d-flex flex-row flex-wrap justify-content-between " (click)="openModalEdit('custom-modal-2', staff)">Edit <i class="fas fa-pen"></i></button>
+                          <button ngbDropdownItem class="d-flex flex-row   flex-wrap justify-content-between" (click)="openModalDel('custom-modal-3', staff)">Remove <i class="fas fa-minus-circle"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </li>
    </ul>
 
    <div *ngIf="staffMembers?.length < 1">
        <hr>
-       <p>
+       <p class="text-dark">
            No results found :(
        </p>
    </div>
 </div>
+
+<!-- add staff modal -->
+<app-modal id="custom-modal-4">
+    <a class="close custom-modal__close" (click)="closeModal('custom-modal-4');">&times;</a>
+    <h3 class="custom-modal__title">Add Office</h3>
+    <!-- Form -->
+    <form [formGroup]="staffForm" (ngSubmit)="saveStaff(staffForm.value)" class="custom-modal__form">
+      <div class="row form-group justify-content-center" >
+        <label>
+          <input type="text" class="custom-modal__form-control" [formControlName]="'firstName'"
+            placeholder="First Name" />
+        </label>
+      </div>
+  
+      <div class="row form-group justify-content-center">
+        <label>
+          <input type="text" class="custom-modal__form-control" [formControlName]="'lastName'" placeholder="Last Name" />
+        </label>
+      </div>
+      
+  
+      <button type="submit" class="custom-modal__save-button">Save Staff</button>
+    </form>
+  
+  
+  
+  </app-modal>
+
+  <!-- edit office modal -->
+
+<app-modal id="custom-modal-2" >
+    <a class="close custom-modal__close" (click)="closeModal('custom-modal-2')">&times;</a>
+    <h3  class="custom-modal__title">Edit Staff</h3>
+    <!-- Form -->
+    <form [formGroup]="staffForm" (ngSubmit)="saveStaff(staffForm.value)" class="custom-modal__form">
+        <div class="row form-group justify-content-center" >
+            <label>
+              <input type="text" class="custom-modal__form-control" [formControlName]="'firstName'"
+                placeholder="First Name" />
+            </label>
+          </div>
+      
+          <div class="row form-group justify-content-center">
+            <label>
+              <input type="text" class="custom-modal__form-control" [formControlName]="'lastName'" placeholder="Last Name" />
+            </label>
+          </div>
+  
+      <button type="submit" class="custom-modal__save-button">Save Office</button>
+    </form>
+  </app-modal>
+  <!-- end of edit office modal -->
+  
+  <!-- remove office modal -->
+  <app-modal id="custom-modal-3">
+    <a class="close custom-modal__close" (click)="closeModal('custom-modal-3');">&times;</a>
+    <h3 class="custom-modal__title">Remove Staff</h3>
+    <h6>Are you sure you want to <strong class="text-danger">Remove</strong ></h6>
+    <h5 class="custom-modal__name text-danger">{{staffName}}</h5>
+    
+    <button (click)="removeStaff()" class="btn btn-danger">Remove</button>
+  </app-modal>
+  <!-- end of remove office -->
