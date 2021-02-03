@@ -1,1 +1,14 @@
-<p>staff works!</p>
+
+<div class="staff ">
+   <input type="text" (keydown)="search($event)"  name="" id="">
+   <ul *ngFor="let staff of staffMembers">
+       <li><p>{{staff.firstName + ' ' + staff.lastName}}</p></li>
+   </ul>
+
+   <div *ngIf="staffMembers?.length < 1">
+       <hr>
+       <p>
+           No results found :(
+       </p>
+   </div>
+</div>

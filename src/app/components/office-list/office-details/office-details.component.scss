@@ -1,3 +1,27 @@
-.modal-title {
-    text-align: center;
+.office-details {
+    &__office-card {
+        border-radius: 10px;
+        background-image: linear-gradient(
+            to top,
+            rgba(97, 190, 206, 0.849),
+            rgb(110, 110, 224)
+          );
+
+    }
+    &__office-header {
+
+    }
+    &__office-contact-details {
+
+    }
+    &__email {
+
+    }
+    &__office-tel {
+
+    }
+    &__max-capacity {
+
+    }
+
 }

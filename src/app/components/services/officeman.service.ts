@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class OfficemanService {
   // offices: AngularFireList<Office[]>
   data = [];
-  private office = new BehaviorSubject<Office>(new Office());
+  office = new BehaviorSubject<Office>(new Office());
   office$ = this.office.asObservable();
 
   constructor(public db: AngularFireDatabase) {
@@ -50,4 +50,5 @@ export class OfficemanService {
   broadcastOffice(office: Office): void {
     this.office.next(office);
   }
+
 }

@@ -42,9 +42,10 @@ export class OfficeComponent implements OnInit {
 
     if (num === 1) { this.toggle1 = !this.toggle1; }
   }
-  openOffice(id: string): void {
-    console.log(id);
-    this.router.navigate([`./office/${id}`]);
+  openOffice(office: Office): void {
+       
+    this.officeMan.broadcastOffice(office);
+    this.router.navigate([`./office/${office.officeName}`]);
   }
 
   saveOffice(formValues: Office): void {
