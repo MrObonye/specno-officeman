@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Staff } from 'src/app/models/staff.model';
 import { Subject } from 'rxjs';
-import { SearchService } from '../services/search.service';
+import { SearchService } from '../../services/search.service';
 
 
 @Component({

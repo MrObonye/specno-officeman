@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Office } from 'src/app/models/office.model';
-import { OfficemanService } from '../../services/officeman.service';
+import { OfficemanService } from '../../../services/officeman.service';
 
 @Component({
   selector: 'app-office-details',

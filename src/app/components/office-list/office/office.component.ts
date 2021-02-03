@@ -2,9 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Office } from 'src/app/models/office.model';
-import { Offices } from 'src/app/temp-data/db';
-import { ModalService } from '../../services/modal.service';
-import { OfficemanService } from '../../services/officeman.service';
+import { ModalService } from '../../../services/modal.service';
+import { OfficemanService } from '../../../services/officeman.service';
 
 @Component({
   selector: 'app-office',
@@ -38,12 +37,12 @@ export class OfficeComponent implements OnInit {
   get f() {
     return this.editOfficeForm.controls;
   }
-  changeType( num: number): void {
+  changeType(num: number): void {
 
     if (num === 1) { this.toggle1 = !this.toggle1; }
   }
   openOffice(office: Office): void {
-       
+
     this.officeMan.broadcastOffice(office);
     this.router.navigate([`./office/${office.officeName}`]);
   }

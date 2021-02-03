@@ -1,8 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Office } from 'src/app/models/office.model';
-import { ModalService } from '../services/modal.service';
-import { OfficemanService } from '../services/officeman.service';
+import { ModalService } from '../../services/modal.service';
+import { OfficemanService } from '../../services/officeman.service';
 
 @Component({
   selector: 'app-office-list',
