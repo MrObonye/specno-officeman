@@ -20,6 +20,7 @@ export class StaffComponent implements OnInit {
   toggle1 = true;
   staffForm: FormGroup;
   staffName: string;
+  filteredData: Staff[];
 
   constructor(
     private searchService: SearchService,
@@ -37,19 +38,28 @@ export class StaffComponent implements OnInit {
       lastName: new FormControl('')
     });
 
-    this.staffMembers = this.officeManService.retrieveStaff();
+    if ( this.staffMembers === undefined) {
+      this.staffMembers = this.officeManService.retrieveStaff();
+    }
+    this.filteredData = this.staffMembers;
   }
   get f() {
     return this.staffForm.controls;
   }
-  search($event): void {
-    if ($event.timestamp - this.lastKeypress > 200) {
-      const q = $event.target.value;
-      this.startAt.next(q);
-      this.endAt.next(q + '\uf8ff');
-    }
-    this.lastKeypress = $event.timestamp;
+  submit(formValues: string) {
+    console.log(formValues);
   }
+  search($event): void {
+    const q = $event.target.value;
+    const result = this.staffMembers.filter(
+      item => {
+        // const value: string;
+        return item.firstName.toLowerCase().includes(q.toLowerCase().trim())  ||
+      item.lastName.toLocaleLowerCase().includes(q.toLowerCase().trim());
+    });
+
+    this.filteredData = result;
+    }
   // TODO fix types for staff
   openModal(id: string): void {
     this.modalService.open(id);
@@ -61,7 +71,7 @@ export class StaffComponent implements OnInit {
   }
   openModalDel(id: string, staff: Staff): void {
     this.officeManService.removeStaff(staff);
-    this.staffName = `${staff.firstName} ${staff.lastName}` ;
+    this.staffName = `${staff.firstName} ${staff.lastName}`;
     this.modalService.open(id);
 
   }
