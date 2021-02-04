@@ -3,12 +3,10 @@
     <div class='row'>
         <div class='col-md-6'>
           <div class='search-box'>
-            <form class='search-form'>
-              <input class='form-control' placeholder="search" type='text'>
-              <button class='btn btn-link search-btn'>
+              <input class='form-control' placeholder="search" type='text' (keyup)="search($event)">
+              <button disabled class='btn btn-link search-btn'>
                 <i class="fa fa-search"></i>
               </button>
-            </form>
           </div>
         </div>
       </div>
@@ -19,7 +17,7 @@
         <button class="btn btn-raised btn-light shadow staff-button" (click)="openModal('custom-modal-4')">Add Staff</button>
       </div>
 
-   <ul *ngFor="let staff of staffMembers">
+   <ul *ngFor="let staff of filteredData">
        <li>
         <div class="d-flex flex-row flex-wrap fit-to-parent text-dark">
             <div class="icon-thumbnail bg-primary text-white">
@@ -62,7 +60,7 @@
     </li>
    </ul>
 
-   <div *ngIf="staffMembers?.length < 1">
+   <div *ngIf="filteredData?.length < 1">
        <hr>
        <p class="text-dark">
            No results found :(
