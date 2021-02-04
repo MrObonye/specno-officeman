@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Staff } from 'src/app/models/staff.model';
+import { Staff } from 'src/app/shared/models/staff.model';
 import { Subject } from 'rxjs';
-import { SearchService } from '../../services/search.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ModalService } from 'src/app/services/modal.service';
-import { OfficemanService } from 'src/app/services/officeman.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
+import { OfficemanService } from 'src/app/shared/services/officeman.service';
 
 
 @Component({
@@ -23,7 +22,6 @@ export class StaffComponent implements OnInit {
   filteredData: Staff[];
 
   constructor(
-    private searchService: SearchService,
     private fb: FormBuilder,
     private modalService: ModalService,
     private officeManService: OfficemanService
@@ -38,28 +36,26 @@ export class StaffComponent implements OnInit {
       lastName: new FormControl('')
     });
 
-    if ( this.staffMembers === undefined) {
-      this.staffMembers = this.officeManService.retrieveStaff();
+    if (this.staffMembers === undefined) {
+      // this.staffMembers = this.officeManService.retrieveStaff();
     }
     this.filteredData = this.staffMembers;
   }
   get f() {
     return this.staffForm.controls;
   }
-  submit(formValues: string) {
-    console.log(formValues);
-  }
+
   search($event): void {
     const q = $event.target.value;
     const result = this.staffMembers.filter(
       item => {
         // const value: string;
-        return item.firstName.toLowerCase().includes(q.toLowerCase().trim())  ||
-      item.lastName.toLocaleLowerCase().includes(q.toLowerCase().trim());
-    });
+        return item.firstName.toLowerCase().includes(q.toLowerCase().trim()) ||
+          item.lastName.toLocaleLowerCase().includes(q.toLowerCase().trim());
+      });
 
     this.filteredData = result;
-    }
+  }
   // TODO fix types for staff
   openModal(id: string): void {
     this.modalService.open(id);
@@ -70,9 +66,9 @@ export class StaffComponent implements OnInit {
     console.log(staff);
   }
   openModalDel(id: string, staff: Staff): void {
-    this.officeManService.removeStaff(staff);
+    /* this.officeManService.removeStaff(staff);
     this.staffName = `${staff.firstName} ${staff.lastName}`;
-    this.modalService.open(id);
+    this.modalService.open(id); */
 
   }
   changeType(num: number): void {
@@ -83,7 +79,7 @@ export class StaffComponent implements OnInit {
     this.modalService.close(id);
   }
   saveStaff(formValue: Staff): void {
-    this.officeManService.addStaff(formValue);
+    // this.officeManService.addStaff(formValue);
   }
   removeStaff(): void { }
 

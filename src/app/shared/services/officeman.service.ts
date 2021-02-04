@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Office } from 'src/app/models/office.model';
-import { Staff } from 'src/app/models/staff.model';
+import { Office } from 'src/app/shared/models/office.model';
+import { Staff } from 'src/app/shared/models/staff.model';
 
 import { AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireList } from '@angular/fire/database';
@@ -16,25 +16,24 @@ export class OfficemanService {
   staffData = [];
   office = new BehaviorSubject<Office>(new Office());
   office$ = this.office.asObservable();
+  officesRef: AngularFireList<Office>;
 
   constructor(public db: AngularFireDatabase) {
-    db.list('/offices').snapshotChanges().subscribe(res => res.forEach( item => {
+    this.officesRef = db.list<Office>('/offices');
+    /* db.list('/offices').snapshotChanges().subscribe(res => res.forEach( item => {
       const office = item.payload.toJSON();
       office['id'] = item.key;
       this.data.push(office as Office);
-    }));
-    db.list('/staff').snapshotChanges().subscribe(res => res.forEach(item => {
-      const staff = item.payload.toJSON();
-      staff['id'] = item.key;
-      this.staffData.push(staff as Staff);
-    }));
+    })); */
   }
-  public editOffice(office: Office): void {
-    console.log(office);
-
+  getAll(): AngularFireList<Office> {
+    return this.officesRef;
   }
-  public addOffice(office: Office): void {
-    this.db.list('offices').push(office);
+  create(office: Office): any{
+    return this.officesRef.push(office);
+  }
+  /* public addOffice(office: Office): void {
+    this.db.object('offices').set(office);
     console.log(office);
 
   }
@@ -59,6 +58,6 @@ export class OfficemanService {
   }
   broadcastOffice(office: Office): void {
     this.office.next(office);
-  }
+  } */
 
 }

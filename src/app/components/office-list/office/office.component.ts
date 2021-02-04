@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Office } from 'src/app/models/office.model';
-import { ModalService } from '../../../services/modal.service';
-import { OfficemanService } from '../../../services/officeman.service';
+import { Office } from 'src/app/shared/models/office.model';
+import { ModalService } from '../../../shared/services/modal.service';
+import { OfficemanService } from '../../../shared/services/officeman.service';
 
 @Component({
   selector: 'app-office',
@@ -43,15 +43,15 @@ export class OfficeComponent implements OnInit {
   }
   openOffice(office: Office): void {
 
-    this.officeMan.broadcastOffice(office);
-    this.router.navigate([`./office/${office.officeName}`]);
+   /*  this.officeMan.broadcastOffice(office);
+    this.router.navigate([`./office/${office.officeName}`]); */
   }
 
   saveOffice(formValues: Office): void {
-    this.officeMan.editOffice(formValues);
+    // this.officeMan.editOffice(formValues);
   }
   removeOffice(): void {
-    this.officeMan.removeOffice(this.id);
+    // this.officeMan.removeOffice(this.id);
     console.log(`remove this item from db ${this.id}`);
   }
   openModal(id: string, office: Office): void {
