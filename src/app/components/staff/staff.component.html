@@ -12,9 +12,9 @@
       </div>
       <div class="row mt-3">
         <div class="staff-members col-8 text-dark text-left m-4">
-            <p class="text-dark">Staff Members 08/09</p>
+            <p class="text-dark">Staff Members {{filteredData.length  | number}}/{{office?.maxOccupants | number}}</p>
         </div>
-        <button class="btn btn-raised btn-light shadow staff-button" (click)="openModal('custom-modal-4')">Add Staff</button>
+        <button class="btn btn-raised btn-light shadow staff-button" (click)="openModal('custom-modal-1')">Add Staff</button>
       </div>
 
    <ul *ngFor="let staff of filteredData">
@@ -27,7 +27,7 @@
               <div class="card-body fit-to-parent">
                 <div class="d-flex flex-row w-100 justify-content-between">
                   <div class="d-flex flex-column justify-content-between">
-                    <small class="card-text fw-lighter ml-2 mt-0">{{staff.firstName + ' ' + staff.lastName}}</small>
+                    <small class="card-text fw-lighter ml-2 mt-0">{{staff?.firstName + ' ' + staff?.lastName}}</small>
                   </div>
                   <div class="d-flex flex-column justify-content-between">
                     <div class="col text-right">
@@ -69,9 +69,9 @@
 </div>
 
 <!-- add staff modal -->
-<app-modal id="custom-modal-4">
-    <a class="close custom-modal__close" (click)="closeModal('custom-modal-4');">&times;</a>
-    <h3 class="custom-modal__title">Add Office</h3>
+<app-modal id="custom-modal-1">
+    <a class="close custom-modal__close" (click)="closeModal('custom-modal-1');">&times;</a>
+    <h3 class="custom-modal__title">Add Staff</h3>
     <!-- Form -->
     <form [formGroup]="staffForm" (ngSubmit)="saveStaff(staffForm.value)" class="custom-modal__form">
       <div class="row form-group justify-content-center" >
@@ -101,7 +101,7 @@
     <a class="close custom-modal__close" (click)="closeModal('custom-modal-2')">&times;</a>
     <h3  class="custom-modal__title">Edit Staff</h3>
     <!-- Form -->
-    <form [formGroup]="staffForm" (ngSubmit)="saveStaff(staffForm.value)" class="custom-modal__form">
+    <form [formGroup]="staffForm" (ngSubmit)="updateStaff(staffForm.value)" class="custom-modal__form">
         <div class="row form-group justify-content-center" >
             <label>
               <input type="text" class="custom-modal__form-control" [formControlName]="'firstName'"

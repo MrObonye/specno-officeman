@@ -1,20 +1,28 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Office } from 'src/app/models/office.model';
-import { ModalService } from '../../services/modal.service';
-import { OfficemanService } from '../../services/officeman.service';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { Office } from 'src/app/shared/models/office.model';
+import { ModalService } from '../../shared/services/modal.service';
+import { OfficemanService } from '../../shared/services/officeman.service';
 
 @Component({
   selector: 'app-office-list',
   templateUrl: './office-list.component.html',
   styleUrls: ['./office-list.component.scss']
 })
-export class OfficeListComponent implements OnInit {
+export class OfficeListComponent implements OnInit, OnDestroy {
   addOfficeForm: FormGroup;
   officesOutput: Office[];
+  editMode = false;
+  subscription: Subscription;
 
-  constructor(private modalService: ModalService, private readonly fb: FormBuilder, private officeManService: OfficemanService) {
-   }
+  constructor(
+    private modalService: ModalService,
+    private readonly fb: FormBuilder,
+    private officeManService: OfficemanService,
+    private toastr: ToastrService) {
+  }
 
   ngOnInit(): void {
     this.addOfficeForm = this.fb.group({
@@ -26,9 +34,11 @@ export class OfficeListComponent implements OnInit {
       officeColor: new FormControl('')
     });
 
-    this.officesOutput = this.officeManService.retrieveOffices();
+    this.subscription = this.officeManService.getAll().subscribe((offices: Office[]) => {
+      this.officesOutput  = offices;
+    });
   }
-  get f() {
+  get f(): any {
     return this.addOfficeForm.controls;
   }
   openModal(id: string): void {
@@ -37,7 +47,35 @@ export class OfficeListComponent implements OnInit {
   closeModal(id: string): void {
     this.modalService.close(id);
   }
+
+  // method to save office
   saveOffice(formValue: Office): void {
-    this.officeManService.addOffice(formValue);
+    this.officeManService.createOffice(formValue)
+      .then(() => {
+        this.showSuccess();
+        this.closeModal('custom-modal-1');
+        this.addOfficeForm.reset();
+      })
+      .catch(err => {
+        this.showError();
+        console.error(err);
+      }
+      );
   }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.editMode = false;
+  }
+
+  // Toast messages
+
+  showSuccess(): void {
+    this.toastr.success('Office Added Successfully!', 'Add Office');
+  }
+  showError(): void {
+    this.toastr.error('Oops! Something went wrong on our side!', 'Office');
+  }
+
 }

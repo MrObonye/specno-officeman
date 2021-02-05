@@ -1,7 +1,8 @@
+import { Staff } from "./staff.model";
+
 export class Office {
   id: string;
   officeName: string;
-  location: string;
   address: string;
   email: string;
   officeTel: string;

@@ -13,8 +13,8 @@ import { OfficeListComponent } from './office-list/office-list.component';
 import {OfficeDetailsComponent} from './office-list/office-details/office-details.component';
 
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from './modal/modal.module';
+import {  ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from '../shared/modal/modal.module';
 import { StaffComponent } from './staff/staff.component';
 
 
