@@ -77,7 +77,7 @@ export class OfficeComponent implements OnInit, OnDestroy {
   }
   openModal(id: string, office: Office): void {
     // this.officeMan.broadcastOffice(office);
-    this.id = office.id;
+    this.id = office.key;
     this.f.officeName.setValue(office.officeName);
     this.f.email.setValue(office.email);
     this.f.address.setValue(office.address);
@@ -86,10 +86,10 @@ export class OfficeComponent implements OnInit, OnDestroy {
     this.f.officeTel.setValue(office.officeTel);
     this.modalService.open(id);
   }
-  openModalDel(modalId: string, officeId: string, officeName: string): void {
+  openModalDel(modalId: string, office: Office): void {
     this.id = modalId;
-    this.officeName = officeName;
-    this.id = officeId;
+    this.officeName = office.officeName;
+    this.id = office.key;
     this.modalService.open(modalId);
   }
   closeModal(id: string): void {
