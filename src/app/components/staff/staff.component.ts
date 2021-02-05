@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { OfficemanService } from 'src/app/shared/services/officeman.service';
 import { Office } from 'src/app/shared/models/office.model';
+import { NotifyService } from 'src/app/shared';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class StaffComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private modalService: ModalService,
-    private officeManService: OfficemanService
+    private officeManService: OfficemanService,
+    private notify: NotifyService
   ) { }
 
   ngOnInit(): void {
@@ -72,8 +74,7 @@ export class StaffComponent implements OnInit, OnDestroy {
   }
   openModalDel(id: string, staff: Staff): void {
     if (this.staffId === undefined) {
-      this.staffId = staff.id;
-      console.log(this.staffId);
+      this.staffId = staff.key;
     }
     this.staffName = `${staff.firstName} ${staff.lastName}`;
     this.modalService.open(id);
@@ -90,7 +91,9 @@ export class StaffComponent implements OnInit, OnDestroy {
     if (this.staffMembers.length < this.office.maxOccupants) {
       if (this.office.id) {
         formValue.officeId = this.office.id;
-        this.officeManService.createStaff(formValue);
+        this.officeManService.createStaff(formValue)
+        .then(() => this.notify.showSuccess('Office Updated Successfully!', 'Update Office'))
+        .catch(() => this.notify.showError('Oops! Something went wrong on our side!', 'Office'));
       }
     }
     this.modalService.close('custom-modal-1');
@@ -100,7 +103,10 @@ export class StaffComponent implements OnInit, OnDestroy {
     this.modalService.close('custom-modal-2');
   }
   removeStaff(): void {
-    this.officeManService.deleteStaff(this.staffId).then(() => { this.staffId = undefined; }).catch(err => console.log(err));
+    this.officeManService.deleteStaff(this.staffId).then(() => {
+      this.staffId = undefined;
+      this.notify.showSuccess('Office deleted successfully!', 'Delete Office');
+    }).catch(err => console.log(err));
     this.modalService.close('custom-modal-3');
   }
 

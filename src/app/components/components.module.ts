@@ -14,7 +14,7 @@ import {OfficeDetailsComponent} from './office-list/office-details/office-detail
 
 
 import {  ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from '../shared/modal/modal.module';
+import { ModalModule } from '../shared';
 import { StaffComponent } from './staff/staff.component';
 
 
