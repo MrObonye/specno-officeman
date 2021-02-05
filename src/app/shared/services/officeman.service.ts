@@ -23,7 +23,7 @@ export class OfficemanService {
     this.officesRef = db.list<Office>('/offices');
     this.staffRef = db.list<Staff>('/staff');
   }
-  getAll(): any {
+  getAll(): Observable<Office[]> {
     return this.officesRef.snapshotChanges().pipe(
       map(changes =>
         changes.map(offices => ({ id: offices.payload.key, ...offices.payload.val() }))));
@@ -40,7 +40,7 @@ export class OfficemanService {
 
   /* CRUD FOR STAFF */
 
-  getAllStaff(): any {
+  getAllStaff(): Observable<Staff[]> {
     return this.staffRef.snapshotChanges().pipe(
       map(changes =>
         changes.map(staff => (({id: staff.payload.key, ...staff.payload.val()})))));

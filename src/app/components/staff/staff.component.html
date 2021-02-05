@@ -12,7 +12,7 @@
       </div>
       <div class="row mt-3">
         <div class="staff-members col-8 text-dark text-left m-4">
-            <p class="text-dark">Staff Members {{staffMembers.length}}/{{office.maxOccupants}}</p>
+            <p class="text-dark">Staff Members {{filteredData.length  | number}}/{{office?.maxOccupants | number}}</p>
         </div>
         <button class="btn btn-raised btn-light shadow staff-button" (click)="openModal('custom-modal-1')">Add Staff</button>
       </div>
@@ -27,7 +27,7 @@
               <div class="card-body fit-to-parent">
                 <div class="d-flex flex-row w-100 justify-content-between">
                   <div class="d-flex flex-column justify-content-between">
-                    <small class="card-text fw-lighter ml-2 mt-0">{{staff.firstName + ' ' + staff.lastName}}</small>
+                    <small class="card-text fw-lighter ml-2 mt-0">{{staff?.firstName + ' ' + staff?.lastName}}</small>
                   </div>
                   <div class="d-flex flex-column justify-content-between">
                     <div class="col text-right">

@@ -18,16 +18,15 @@ export class OfficeDetailsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   constructor(private officeMan: OfficemanService, private route: ActivatedRoute, private router: Router) {
     this.id = route.snapshot.params.id;
-   }
+  }
 
   ngOnInit(): void {
-    this.office = this.officeMan.office;
-    if (this.office === undefined) {
-      this.subscription = this.officeMan.getAll().subscribe((item: Office[]) => {
-       this.officeData = item;
-       this.officeData.forEach((office: Office) => office.id === this.id ? this.office = office : this.router.navigate(['/']));
-      });
+    if (!this.office === null) {
+      this.office = this.officeMan.office;
     }
+    this.subscription = this.officeMan.getAll().subscribe((item: Office[]) => {
+      this.officeData = item;
+      this.officeData.forEach((office: Office) => office.id === this.id ? this.office = office : null ); });
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

@@ -63,7 +63,9 @@ export class OfficeListComponent implements OnInit, OnDestroy {
       );
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     this.editMode = false;
   }
 

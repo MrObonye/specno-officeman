@@ -47,7 +47,6 @@ export class OfficeComponent implements OnInit, OnDestroy {
     if (num === 1) { this.toggle1 = !this.toggle1; }
   }
   openOffice(office: Office): void {
-    console.log(office);
 
     this.officeMan.office = office;
     this.router.navigate([`./office/${office.id}`]);
@@ -110,6 +109,6 @@ export class OfficeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

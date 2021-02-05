@@ -21,9 +21,9 @@ export class StaffComponent implements OnInit, OnDestroy {
   staffForm: FormGroup;
   staffName: string;
   staffId: string;
-  filteredData: Staff[];
+  filteredData: Staff[] = [];
   subscription: Subscription;
-  @Input() office: Office;
+  @Input() office: Office = null;
 
   constructor(
     private fb: FormBuilder,
@@ -71,7 +71,6 @@ export class StaffComponent implements OnInit, OnDestroy {
     this.modalService.open(id);
   }
   openModalDel(id: string, staff: Staff): void {
-    console.log(this.staffId);
     if (this.staffId === undefined) {
       this.staffId = staff.id;
       console.log(this.staffId);
@@ -101,7 +100,6 @@ export class StaffComponent implements OnInit, OnDestroy {
     this.modalService.close('custom-modal-2');
   }
   removeStaff(): void {
-    console.log(`remove staff: ${this.staffId}`);
     this.officeManService.deleteStaff(this.staffId).then(() => { this.staffId = undefined; }).catch(err => console.log(err));
     this.modalService.close('custom-modal-3');
   }
