@@ -34,9 +34,11 @@ export class OfficeListComponent implements OnInit, OnDestroy {
       officeColor: new FormControl('')
     });
 
-    // this.subscription = this.officesOutput = this.officeManService.retrieveOffices().subscribe();
+    this.subscription = this.officeManService.getAll().subscribe((offices: Office[]) => {
+      this.officesOutput  = offices;
+    });
   }
-  get f() {
+  get f(): any {
     return this.addOfficeForm.controls;
   }
   openModal(id: string): void {
@@ -48,10 +50,11 @@ export class OfficeListComponent implements OnInit, OnDestroy {
 
   // method to save office
   saveOffice(formValue: Office): void {
-    this.officeManService.create(formValue)
+    this.officeManService.createOffice(formValue)
       .then(() => {
         this.showSuccess();
         this.closeModal('custom-modal-1');
+        this.addOfficeForm.reset();
       })
       .catch(err => {
         this.showError();
@@ -67,7 +70,7 @@ export class OfficeListComponent implements OnInit, OnDestroy {
   // Toast messages
 
   showSuccess(): void {
-    this.toastr.success('Office Added Successfully!', 'Office');
+    this.toastr.success('Office Added Successfully!', 'Add Office');
   }
   showError(): void {
     this.toastr.error('Oops! Something went wrong on our side!', 'Office');

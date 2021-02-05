@@ -8,5 +8,4 @@ export class Office {
   officeTel: string;
   maxOccupants: number;
   officeColor: string;
-  staffList: Staff[];
 }

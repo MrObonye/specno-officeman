@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Staff } from 'src/app/shared/models/staff.model';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { OfficemanService } from 'src/app/shared/services/officeman.service';
+import { Office } from 'src/app/shared/models/office.model';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { OfficemanService } from 'src/app/shared/services/officeman.service';
   templateUrl: './staff.component.html',
   styleUrls: ['./staff.component.scss']
 })
-export class StaffComponent implements OnInit {
+export class StaffComponent implements OnInit, OnDestroy {
   staffMembers: Staff[];
   startAt = new Subject();
   endAt = new Subject();
@@ -19,7 +20,10 @@ export class StaffComponent implements OnInit {
   toggle1 = true;
   staffForm: FormGroup;
   staffName: string;
+  staffId: string;
   filteredData: Staff[];
+  subscription: Subscription;
+  @Input() office: Office;
 
   constructor(
     private fb: FormBuilder,
@@ -28,20 +32,22 @@ export class StaffComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    /*  this.searchService.getStaff(this.startAt, this.endAt).subscribe(staff => {
-       this.staffMembers = staff;
-     }); */
     this.staffForm = this.fb.group({
       firstName: new FormControl(''),
       lastName: new FormControl('')
     });
+    this.subscription = this.officeManService.getAllStaff().subscribe((items: Staff[]) => {
+      this.staffMembers = items.filter(staff => staff.officeId === this.office.id);
+      this.filteredData = items.filter(staff => staff.officeId === this.office.id);
 
-    if (this.staffMembers === undefined) {
-      // this.staffMembers = this.officeManService.retrieveStaff();
+    });
+
+    if (!this.staffMembers === undefined) {
+      this.filteredData = this.staffMembers;
+
     }
-    this.filteredData = this.staffMembers;
   }
-  get f() {
+  get f(): any {
     return this.staffForm.controls;
   }
 
@@ -63,12 +69,15 @@ export class StaffComponent implements OnInit {
   openModalEdit(id: string, staff: Staff): void {
     this.populateForm(staff);
     this.modalService.open(id);
-    console.log(staff);
   }
   openModalDel(id: string, staff: Staff): void {
-    /* this.officeManService.removeStaff(staff);
+    console.log(this.staffId);
+    if (this.staffId === undefined) {
+      this.staffId = staff.id;
+      console.log(this.staffId);
+    }
     this.staffName = `${staff.firstName} ${staff.lastName}`;
-    this.modalService.open(id); */
+    this.modalService.open(id);
 
   }
   changeType(num: number): void {
@@ -79,13 +88,31 @@ export class StaffComponent implements OnInit {
     this.modalService.close(id);
   }
   saveStaff(formValue: Staff): void {
-    // this.officeManService.addStaff(formValue);
+    if (this.staffMembers.length < this.office.maxOccupants) {
+      if (this.office.id) {
+        formValue.officeId = this.office.id;
+        this.officeManService.createStaff(formValue);
+      }
+    }
+    this.modalService.close('custom-modal-1');
   }
-  removeStaff(): void { }
+  updateStaff(formValue: Staff): void {
+    this.officeManService.updateStaff(this.staffId, formValue);
+    this.modalService.close('custom-modal-2');
+  }
+  removeStaff(): void {
+    console.log(`remove staff: ${this.staffId}`);
+    this.officeManService.deleteStaff(this.staffId).then(() => { this.staffId = undefined; }).catch(err => console.log(err));
+    this.modalService.close('custom-modal-3');
+  }
 
   populateForm(staff: Staff): void {
+    this.staffId = staff.id;
     this.f.firstName.setValue(staff.firstName);
     this.f.lastName.setValue(staff.lastName);
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

@@ -1,14 +1,14 @@
 
 <div class="office-details text-center text-white">
     <div class="office-details__office-card bg-primary shadow mx-2 mb-3">
-        <div class="office-details__header text-white text-left px-4 pt-4 h3" [routerLink]="'/'"><i class="fas fa-arrow-left pr-4"></i>{{office.officeName}}</div>
+        <div class="office-details__header text-white text-left px-4 pt-4 h3" [routerLink]="'/'"><i class="fas fa-arrow-left pr-4"></i>{{office?.officeName}}</div>
         <div class="office-details_contact-details text-left p-4 pt-2">
-            <div class="office-details__address">Address: {{office.address}}</div>
-            <div class="office-details__email">Email: {{office.email}}</div>
-            <div class="office-details__office-tel">Office Tel: {{office.officeTel}}</div>
-            <div class="office-details__max-capacity">Max Capacity: {{office.maxOccupants}}</div>
+            <div class="office-details__address">Address: {{office?.address}}</div>
+            <div class="office-details__email">Email: {{office?.email}}</div>
+            <div class="office-details__office-tel">Office Tel: {{office?.officeTel}}</div>
+            <div class="office-details__max-capacity">Max Capacity: {{office?.maxOccupants}}</div>
         </div>
     </div>
-    <app-staff ></app-staff>
+    <app-staff [office]="office" ></app-staff>
 </div>
 
