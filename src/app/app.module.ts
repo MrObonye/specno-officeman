@@ -14,12 +14,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
-import { LoadingComponent } from './shared';
+// import { LoadingComponent, UiService } from './shared';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingComponent
+    // LoadingComponent
   ],
   imports: [
     BrowserModule,

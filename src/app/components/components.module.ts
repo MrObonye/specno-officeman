@@ -14,13 +14,13 @@ import {OfficeDetailsComponent} from './office-list/office-details/office-detail
 
 
 import {  ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from '../shared';
+import { LoadingComponent, ModalModule, UiService } from '../shared';
 import { StaffComponent } from './staff/staff.component';
 
 
 
 @NgModule({
-  declarations: [OfficeComponent, OfficeListComponent, OfficeDetailsComponent, StaffComponent],
+  declarations: [OfficeComponent, OfficeListComponent, OfficeDetailsComponent, StaffComponent, LoadingComponent],
   imports: [
     CommonModule,
     ComponentsRoutingModule,

@@ -16,9 +16,10 @@
         </div>
         <button class="btn btn-raised btn-light shadow staff-button" (click)="openModal('custom-modal-1')">Add Staff</button>
       </div>
-
+     
    <ul *ngFor="let staff of filteredData">
        <li>
+       
         <div class="d-flex flex-row flex-wrap fit-to-parent text-dark">
             <div class="icon-thumbnail bg-primary text-white">
                 <i class="fas fa-user icon"></i>
@@ -59,7 +60,7 @@
           </div>
     </li>
    </ul>
-
+   
    <div *ngIf="filteredData?.length < 1">
        <hr>
        <p class="text-dark">
