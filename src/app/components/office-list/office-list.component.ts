@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { UiService } from 'src/app/shared';
 import { Office } from 'src/app/shared/models/office.model';
 import { ModalService } from '../../shared/services/modal.service';
 import { OfficemanService } from '../../shared/services/officeman.service';
@@ -22,8 +21,8 @@ export class OfficeListComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private readonly fb: FormBuilder,
     private officeManService: OfficemanService,
-    private toastr: ToastrService,
-    private uiService: UiService) {
+    private toastr: ToastrService
+  ) {
   }
 
   ngOnInit(): void {
@@ -37,7 +36,7 @@ export class OfficeListComponent implements OnInit, OnDestroy {
     });
 
     this.subscription = this.officeManService.getAll().subscribe((offices: Office[]) => {
-      this.officesOutput  = offices;
+      this.officesOutput = offices;
     });
 
   }

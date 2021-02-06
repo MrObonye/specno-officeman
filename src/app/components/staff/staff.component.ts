@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { OfficemanService } from 'src/app/shared/services/officeman.service';
 import { Office } from 'src/app/shared/models/office.model';
-import { NotifyService, UiService } from 'src/app/shared';
+import { NotifyService } from 'src/app/shared';
 
 
 @Component({
@@ -30,8 +30,7 @@ export class StaffComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private modalService: ModalService,
     private officeManService: OfficemanService,
-    private notify: NotifyService,
-    private uiService: UiService
+    private notify: NotifyService
   ) { }
 
   ngOnInit(): void {
@@ -93,8 +92,8 @@ export class StaffComponent implements OnInit, OnDestroy {
       if (this.office.id) {
         formValue.officeId = this.office.id;
         this.officeManService.createStaff(formValue)
-        .then(() => this.notify.showSuccess('Office Updated Successfully!', 'Update Office'))
-        .catch(() => this.notify.showError('Oops! Something went wrong on our side!', 'Office'));
+          .then(() => this.notify.showSuccess('Office Updated Successfully!', 'Update Office'))
+          .catch(() => this.notify.showError('Oops! Something went wrong on our side!', 'Office'));
       }
     }
     this.modalService.close('custom-modal-1');
@@ -117,7 +116,9 @@ export class StaffComponent implements OnInit, OnDestroy {
     this.f.lastName.setValue(staff.lastName);
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

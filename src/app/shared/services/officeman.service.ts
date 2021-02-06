@@ -6,7 +6,6 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireList } from '@angular/fire/database';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UiService } from './ui.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,17 +14,16 @@ export class OfficemanService {
   // offices: AngularFireList<Office[]>
   data = [];
   staffData = [];
-  office: Office;
+  // office: Office;
   // office$ = this.office.asObservable();
   officesRef: AngularFireList<Office>;
   staffRef: AngularFireList<Staff>;
 
-  constructor(public db: AngularFireDatabase, private uiService: UiService) {
+  constructor(public db: AngularFireDatabase) {
     this.officesRef = db.list<Office>('/offices');
     this.staffRef = db.list<Staff>('/staff');
   }
   getAll(): Observable<Office[]> {
-    this.uiService.loadingStateChanged.next(true);
     return this.officesRef.snapshotChanges().pipe(
       map(changes =>
         changes.map(offices => ({ key: offices.payload.key, ...offices.payload.val() }))));
