@@ -55,7 +55,6 @@ export class OfficemanService {
     return this.staffRef.update(key, value);
   }
   deleteStaff(key: string): any {
-    console.log(`delete staff: ${key}`);
     return this.staffRef.remove(key).then().catch(err => console.error(err));
   }
   getRandomString(length): string {
