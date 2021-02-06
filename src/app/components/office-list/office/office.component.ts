@@ -1,11 +1,9 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+
 import { Subscription } from 'rxjs';
-import { Office } from 'src/app/shared/models/office.model';
-import { ModalService } from '../../../shared/services/modal.service';
-import { OfficemanService } from '../../../shared/services/officeman.service';
+import { ModalService , OfficemanService, Office, NotifyService } from '../../../shared';
 
 @Component({
   selector: 'app-office',
@@ -25,7 +23,7 @@ export class OfficeComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private readonly fb: FormBuilder,
     private officeMan: OfficemanService,
-    private toastr: ToastrService
+    private notify: NotifyService
   ) {
   }
 
@@ -57,11 +55,11 @@ export class OfficeComponent implements OnInit, OnDestroy {
     if (this.id) {
       this.officeMan.updateOffice(this.id, formValue)
         .then(() => {
-          this.showSuccess();
+          this.notify.showSuccess('Office Updated Successfully!', 'Update Office');
           this.editOfficeForm.reset();
         })
         .catch(err => {
-          this.showError();
+          this.notify.showError('Oops! Something went wrong on our side!', 'Office');
           console.log(err);
 
         });
@@ -70,14 +68,14 @@ export class OfficeComponent implements OnInit, OnDestroy {
   }
   removeOffice(): void {
     // this.officeMan.removeOffice(this.id);
-    this.officeMan.deleteOffice(this.id).then(() => this.showSuccess());
+    this.officeMan.deleteOffice(this.id).then(() => this.notify.showSuccess('Office deleted successfully!', 'Delete Office'));
     console.log(`remove this item from db ${this.id}`);
     this.modalService.close('custom-modal-3');
 
   }
   openModal(id: string, office: Office): void {
     // this.officeMan.broadcastOffice(office);
-    this.id = office.id;
+    this.id = office.key;
     this.f.officeName.setValue(office.officeName);
     this.f.email.setValue(office.email);
     this.f.address.setValue(office.address);
@@ -86,27 +84,17 @@ export class OfficeComponent implements OnInit, OnDestroy {
     this.f.officeTel.setValue(office.officeTel);
     this.modalService.open(id);
   }
-  openModalDel(modalId: string, officeId: string, officeName: string): void {
+  openModalDel(modalId: string, office: Office): void {
     this.id = modalId;
-    this.officeName = officeName;
-    this.id = officeId;
+    this.officeName = office.officeName;
+    this.id = office.key;
     this.modalService.open(modalId);
   }
   closeModal(id: string): void {
     this.modalService.close(id);
   }
 
-  // Toast messages
 
-  showSuccess(): void {
-    this.toastr.success('Office Updated Successfully!', 'Update Office');
-  }
-  delSuccess(): void {
-    this.toastr.success('Office deleted successfully!', 'Delete Office');
-  }
-  showError(): void {
-    this.toastr.error('Oops! Something went wrong on our side!', 'Office');
-  }
 
   ngOnDestroy(): void {
     // this.subscription.unsubscribe();

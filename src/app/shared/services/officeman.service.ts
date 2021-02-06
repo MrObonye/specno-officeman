@@ -26,9 +26,10 @@ export class OfficemanService {
   getAll(): Observable<Office[]> {
     return this.officesRef.snapshotChanges().pipe(
       map(changes =>
-        changes.map(offices => ({ id: offices.payload.key, ...offices.payload.val() }))));
+        changes.map(offices => ({ key: offices.payload.key, ...offices.payload.val() }))));
   }
   createOffice(office: Office): any {
+    office.id = this.getRandomString(24);
     return this.officesRef.push(office);
   }
   updateOffice(key: string, value: Office): any {
@@ -43,10 +44,11 @@ export class OfficemanService {
   getAllStaff(): Observable<Staff[]> {
     return this.staffRef.snapshotChanges().pipe(
       map(changes =>
-        changes.map(staff => (({id: staff.payload.key, ...staff.payload.val()})))));
+        changes.map(staff => (({key: staff.payload.key, ...staff.payload.val()})))));
   }
 
   createStaff(staff: Staff): any {
+    staff.id = this.getRandomString(24);
     return this.staffRef.push(staff);
   }
   updateStaff(key: string, value: Staff): any {
@@ -56,33 +58,14 @@ export class OfficemanService {
     console.log(`delete staff: ${key}`);
     return this.staffRef.remove(key).then().catch(err => console.error(err));
   }
-  /* public addOffice(office: Office): void {
-    this.db.object('offices').set(office);
-    console.log(office);
+  getRandomString(length): string {
+    const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for ( let i = 0; i < length; i++ ) {
+        result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+    }
+    return result;
+}
 
-  }
-  public removeOffice(id: string): void {
-    console.log(id);
-
-  }
- public addStaff(staff: Staff): void {
-    this.db.list('/staff').push(staff);
-
-  }
-  public removeStaff(staff: Staff): void {
-    console.log(staff);
-
-  }
-  public retrieveOffices(): Office[] {
-    return this.data;
-  }
-  retrieveStaff(): Staff[] {
-    return this.staffData;
-
-  }*/
-
- /*  broadcastOffice(office: Office): void {
-    this.office.next(office);
-  } */
 
 }
