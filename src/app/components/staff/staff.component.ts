@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { OfficemanService } from 'src/app/shared/services/officeman.service';
 import { Office } from 'src/app/shared/models/office.model';
-import { NotifyService } from 'src/app/shared';
+import { NotifyService, UiService } from 'src/app/shared';
 
 
 @Component({
@@ -30,7 +30,8 @@ export class StaffComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private modalService: ModalService,
     private officeManService: OfficemanService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private uiService: UiService
   ) { }
 
   ngOnInit(): void {

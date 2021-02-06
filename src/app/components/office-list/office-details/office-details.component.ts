@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UiService } from 'src/app/shared';
 
 import { Office } from 'src/app/shared/models/office.model';
 import { OfficemanService } from '../../../shared/services/officeman.service';
@@ -16,7 +17,7 @@ export class OfficeDetailsComponent implements OnInit, OnDestroy {
   office: Office;
   id: string;
   subscription: Subscription;
-  constructor(private officeMan: OfficemanService, private route: ActivatedRoute, private router: Router) {
+  constructor(private officeMan: OfficemanService, private route: ActivatedRoute, private router: Router, private uiService: UiService) {
     this.id = route.snapshot.params.id;
   }
 
