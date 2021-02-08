@@ -4,4 +4,5 @@ export class Staff {
     public id: string;
     public key: string;
     public officeId: string;
+    public officeKey: string;
 }

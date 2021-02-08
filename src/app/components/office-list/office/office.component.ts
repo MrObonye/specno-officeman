@@ -45,8 +45,6 @@ export class OfficeComponent implements OnInit, OnDestroy {
     if (num === 1) { this.toggle1 = !this.toggle1; }
   }
   openOffice(office: Office): void {
-
-    this.officeMan.office = office;
     this.router.navigate([`./office/${office.id}`]);
   }
 

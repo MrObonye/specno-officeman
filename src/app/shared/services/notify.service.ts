@@ -10,12 +10,12 @@ export class NotifyService {
     // Toast messages
 
     showSuccess(message: string, header: string): void {
-      this.toastr.success('Office Updated Successfully!', 'Update Office');
+      this.toastr.success(message, header);
     }
     delSuccess(message: string, header: string): void {
-      this.toastr.success('Office deleted successfully!', 'Delete Office');
+      this.toastr.success(message, header);
     }
     showError(message: string, header: string): void {
-      this.toastr.error('Oops! Something went wrong on our side!', 'Office');
+      this.toastr.error(message, header);
     }
 }
