@@ -1,10 +1,14 @@
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+
 import { Subscription } from 'rxjs';
-import { Office } from 'src/app/shared/models/office.model';
-import { ModalService } from '../../shared/services/modal.service';
-import { OfficemanService } from '../../shared/services/officeman.service';
+import { AppState } from 'src/app/app.state';
+import {
+  Office, OfficemanService, ModalService,
+  NotifyService, GetAllOffices, getCreatorError,
+  getDeleteError, isDeleted, isUpdated
+} from 'src/app/shared';
 
 @Component({
   selector: 'app-office-list',
@@ -21,7 +25,8 @@ export class OfficeListComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private readonly fb: FormBuilder,
     private officeManService: OfficemanService,
-    private toastr: ToastrService
+    private notify: NotifyService,
+    private store: Store<AppState>
   ) {
   }
 
@@ -54,12 +59,12 @@ export class OfficeListComponent implements OnInit, OnDestroy {
   saveOffice(formValue: Office): void {
     this.officeManService.createOffice(formValue)
       .then(() => {
-        this.showSuccess();
+        this.notify.showSuccess('Office Added Successfully!', 'Add Office');
         this.closeModal('custom-modal-1');
         this.addOfficeForm.reset();
       })
       .catch(err => {
-        this.showError();
+        this.notify.showError('Oops! Something went wrong on our side!', 'Office');
         console.error(err);
       }
       );
@@ -69,15 +74,6 @@ export class OfficeListComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
     this.editMode = false;
-  }
-
-  // Toast messages
-
-  showSuccess(): void {
-    this.toastr.success('Office Added Successfully!', 'Add Office');
-  }
-  showError(): void {
-    this.toastr.error('Oops! Something went wrong on our side!', 'Office');
   }
 
 }

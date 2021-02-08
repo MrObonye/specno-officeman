@@ -32,8 +32,8 @@ export class OfficemanService {
     office.id = this.getRandomString(24);
     return this.officesRef.push(office);
   }
-  updateOffice(key: string, value: Office): any {
-    return this.officesRef.update(key, value);
+  updateOffice(office: Office): any {
+    return this.officesRef.update(office.key, office).then().catch();
   }
   deleteOffice(key: string): any {
     return this.officesRef.remove(key);

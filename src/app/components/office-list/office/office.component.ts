@@ -51,7 +51,8 @@ export class OfficeComponent implements OnInit, OnDestroy {
   saveOffice(formValue: Office): void {
 
     if (this.id) {
-      this.officeMan.updateOffice(this.id, formValue)
+      formValue.key = this.id;
+      this.officeMan.updateOffice(formValue)
         .then(() => {
           this.notify.showSuccess('Office Updated Successfully!', 'Update Office');
           this.editOfficeForm.reset();

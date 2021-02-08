@@ -5,6 +5,9 @@ import { NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
+import {EffectsModule} from '@ngrx/effects';
+import * as officeReducer from './../shared';
+
 import { ComponentsRoutingModule } from './components-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -14,8 +17,9 @@ import {OfficeDetailsComponent} from './office-list/office-details/office-detail
 
 
 import {  ReactiveFormsModule } from '@angular/forms';
-import { LoadingComponent, ModalModule } from '../shared';
+import { LoadingComponent, ModalModule , OfficeEffects } from '../shared';
 import { StaffComponent } from './staff/staff.component';
+import { StoreModule } from '@ngrx/store';
 
 
 
@@ -27,6 +31,8 @@ import { StaffComponent } from './staff/staff.component';
     FontAwesomeModule,
     RouterModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({offices: officeReducer.reducer}),
+    EffectsModule.forRoot([OfficeEffects]),
     NgbModule,
     ModalModule],
 })
