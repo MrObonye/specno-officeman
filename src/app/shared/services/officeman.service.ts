@@ -11,17 +11,13 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class OfficemanService {
-  // offices: AngularFireList<Office[]>
-  data = [];
-  staffData = [];
-  // office: Office;
-  // office$ = this.office.asObservable();
+
   officesRef: AngularFireList<Office>;
   staffRef: AngularFireList<Staff>;
 
   constructor(public db: AngularFireDatabase) {
     this.officesRef = db.list<Office>('/offices');
-    this.staffRef = db.list<Staff>('/staff');
+    // this.staffRef = db.list<Staff>('/staff');
   }
   getAll(): Observable<Office[]> {
     return this.officesRef.snapshotChanges().pipe(
@@ -41,13 +37,15 @@ export class OfficemanService {
 
   /* CRUD FOR STAFF */
 
-  getAllStaff(): Observable<Staff[]> {
+  getAllStaff(key: string): Observable<Staff[]> {
+    this.staffRef = this.db.list(`/offices/${key}/staff`);
     return this.staffRef.snapshotChanges().pipe(
       map(changes =>
         changes.map(staff => (({key: staff.payload.key, ...staff.payload.val()})))));
   }
 
   createStaff(staff: Staff): any {
+    this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
     staff.id = this.getRandomString(24);
     return this.staffRef.push(staff);
   }

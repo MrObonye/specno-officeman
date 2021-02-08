@@ -38,7 +38,7 @@ export class StaffComponent implements OnInit, OnDestroy {
       firstName: new FormControl(''),
       lastName: new FormControl('')
     });
-    this.subscription = this.officeManService.getAllStaff().subscribe((items: Staff[]) => {
+    this.subscription = this.officeManService.getAllStaff(this.office.key).subscribe((items: Staff[]) => {
       this.staffMembers = items.filter(staff => staff.officeId === this.office.id);
       this.filteredData = items.filter(staff => staff.officeId === this.office.id);
 
@@ -91,6 +91,7 @@ export class StaffComponent implements OnInit, OnDestroy {
     if (this.staffMembers.length < this.office.maxOccupants) {
       if (this.office.id) {
         formValue.officeId = this.office.id;
+        formValue.officeKey = this.office.key;
         this.officeManService.createStaff(formValue)
           .then(() => this.notify.showSuccess('Office Updated Successfully!', 'Update Office'))
           .catch(() => this.notify.showError('Oops! Something went wrong on our side!', 'Office'));
