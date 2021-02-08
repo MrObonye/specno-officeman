@@ -49,11 +49,13 @@ export class OfficemanService {
     staff.id = this.getRandomString(24);
     return this.staffRef.push(staff);
   }
-  updateStaff(key: string, value: Staff): any {
-    return this.staffRef.update(key, value);
+  updateStaff(staff: Staff): any {
+    this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
+    return this.staffRef.update(staff.key, staff);
   }
-  deleteStaff(key: string): any {
-    return this.staffRef.remove(key).then().catch(err => console.error(err));
+  deleteStaff(staff: Staff): any {
+    this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
+    return this.staffRef.remove(staff.key).then().catch(err => console.error(err));
   }
   getRandomString(length): string {
     const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
