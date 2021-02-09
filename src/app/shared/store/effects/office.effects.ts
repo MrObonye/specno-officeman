@@ -1,62 +1,62 @@
-import { Injectable} from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import * as officeActions from './../actions/office.actions';
+import { Injectable } from '@angular/core';
+import { Actions, ofType, createEffect, Effect } from '@ngrx/effects';
+import { EMPTY, Observable, of } from 'rxjs';
+import { Action, Store } from '@ngrx/store';
+import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
+
+import { OfficemanService } from '../../services';
 import {
-  AddOffice,
-  AddOfficeError,
-  AddOfficeSuccess,
-  GetAllOffices,
-  GetAllOfficesSuccess,
-  GetAllOfficesError,
-  UpdateOffice,
-  UpdateOfficeError,
-  UpdateOfficeSuccess,
-  RemoveOffice,
-  RemoveOfficeError,
-  RemoveOfficeSuccess
-} from './../actions/office.actions';
-import { Observable } from 'rxjs';
-import { Action } from '@ngrx/store';
-import { OfficemanService } from './../../services';
-import { Office } from './../../models';
-import { catchError, map, switchMap } from 'rxjs/operators';
+  addOfficeRequest,
+  deleteOfficeRequest,
+  refreshOfficesDone,
+  refreshOfficesRequest,
+  updateOfficeRequest
+} from '../actions/office.actions';
 
 @Injectable()
 export class OfficeEffects {
-  constructor(private actions$: Actions, private officeManService: OfficemanService) { }
+  constructor(private OFMService: OfficemanService, private action$: Actions, private store: Store) {
 
-  @Effect()
-  getOffices$: Observable<Action> = this.actions$.pipe(
-    ofType(officeActions.GET_OFFICES),
-    switchMap(() => this.officeManService.getAll()),
-    map(offices => new GetAllOfficesSuccess(offices)),
-    catchError((err) => [new GetAllOfficesError(err)])
+  }
+
+  // @Effect()
+  refreshOffices$: Observable<Action> = createEffect(() => this.action$.pipe(
+    ofType(refreshOfficesRequest),
+    mergeMap(() => this.OFMService.getAll()
+      .pipe(
+        map(offices => refreshOfficesDone({ offices })),
+        catchError(() => EMPTY)
+      ))
+  )
   );
 
   @Effect()
-  createOffice$ = this.actions$.pipe(
-    ofType(officeActions.CREATE_OFFICE),
-      map((action: AddOffice) => action.payload),
-      switchMap((newOffice: Office) => this.officeManService.createOffice(newOffice)),
-      map(() => new AddOfficeSuccess()),
-      catchError((err) => [new AddOfficeError(err)])
-    );
+  addOffice$ = this.action$.pipe(
+    ofType(addOfficeRequest),
+    switchMap((action) => {
+      return this.OFMService.createOffice(action.office).pipe(
+        map(() => this.store.dispatch(refreshOfficesRequest()))
+      );
+    })
+  );
 
   @Effect()
-  updateOffice$ = this.actions$.pipe(
-    ofType(officeActions.UPDATE_OFFICE),
-    map((action: UpdateOffice) => action.payload),
-    switchMap((office: Office) => this.officeManService.updateOffice(office)),
-    map(() => new UpdateOfficeSuccess()),
-    catchError((err) => [new UpdateOfficeError(err)])
+  updateOffice$ = this.action$.pipe(
+    ofType(updateOfficeRequest),
+    mergeMap((action) => {
+      return this.OFMService.updateOffice(action.office).pipe(
+        map(() => refreshOfficesRequest())
+      );
+    }),
   );
+
   @Effect()
-  removeOffice$ =  this.actions$.pipe(
-    ofType(officeActions.DELETE_OFFICE),
-    map((action: RemoveOffice) => action.payload),
-    switchMap(key => this.officeManService.deleteOffice(key)),
-    map((office: Office) => new RemoveOfficeSuccess(office)),
-    catchError((err) => [new RemoveOfficeError(err)])
+  deleteOffice$ = this.action$.pipe(
+    ofType(deleteOfficeRequest),
+    switchMap((action) => {
+      return this.OFMService.deleteOffice(action.key).pipe(
+        map(() => of(this.store.dispatch(refreshOfficesRequest()))
+        ));
+    }),
   );
 }
-

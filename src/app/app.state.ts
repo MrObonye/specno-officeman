@@ -1,5 +1,6 @@
-import * as fromOffice from './shared';
+import { Office } from './shared';
+
 
 export interface AppState {
-    offices: fromOffice.State;
+    offices: Office[];
 }

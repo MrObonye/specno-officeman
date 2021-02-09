@@ -1,13 +1,14 @@
+import { state } from '@angular/animations';
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import {
   Office, OfficemanService, ModalService,
-  NotifyService, GetAllOffices, getCreatorError,
-  getDeleteError, isDeleted, isUpdated
+  NotifyService, refreshOfficesRequest, addOfficeRequest
 } from 'src/app/shared';
 
 @Component({
@@ -15,18 +16,16 @@ import {
   templateUrl: './office-list.component.html',
   styleUrls: ['./office-list.component.scss']
 })
-export class OfficeListComponent implements OnInit, OnDestroy {
+export class OfficeListComponent implements OnInit {
   addOfficeForm: FormGroup;
-  officesOutput: Office[];
-  editMode = false;
-  subscription: Subscription;
+  officesOutput$ = this.store.pipe(select(theState => theState.offices));
 
   constructor(
     private modalService: ModalService,
     private readonly fb: FormBuilder,
     private officeManService: OfficemanService,
     private notify: NotifyService,
-    private store: Store<AppState>
+    private store: Store<{ offices: Office[] }>
   ) {
   }
 
@@ -40,9 +39,7 @@ export class OfficeListComponent implements OnInit, OnDestroy {
       officeColor: new FormControl('')
     });
 
-    this.subscription = this.officeManService.getAll().subscribe((offices: Office[]) => {
-      this.officesOutput = offices;
-    });
+    this.store.dispatch(refreshOfficesRequest());
 
   }
   get f(): any {
@@ -56,24 +53,11 @@ export class OfficeListComponent implements OnInit, OnDestroy {
   }
 
   // method to save office
-  saveOffice(formValue: Office): void {
-    this.officeManService.createOffice(formValue)
-      .then(() => {
-        this.notify.showSuccess('Office Added Successfully!', 'Add Office');
-        this.closeModal('custom-modal-1');
-        this.addOfficeForm.reset();
-      })
-      .catch(err => {
-        this.notify.showError('Oops! Something went wrong on our side!', 'Office');
-        console.error(err);
-      }
-      );
-  }
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    this.editMode = false;
+  saveOffice(office: Office): void {
+    office.id = this.officeManService.getRandomString(24);
+    this.store.dispatch(addOfficeRequest({ office }));
+    this.closeModal('custom-modal-1');
+    this.addOfficeForm.reset();
   }
 
 }

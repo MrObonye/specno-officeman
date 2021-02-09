@@ -65,4 +65,4 @@
 
 
 <!-- office item -->
-<app-office [offices]="officesOutput "></app-office>
+<app-office [offices]="(officesOutput$ | async )"></app-office>
