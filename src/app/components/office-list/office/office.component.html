@@ -1,52 +1,40 @@
-<ul class="list-group mt-4">
-  <li class="list-group-item card shadow" *ngFor="let office of offices " >
+<ul class="list-group my-3">
+  <li class="list-group-item card shadow" *ngFor="let office of offices; ">
     <div class="d-flex flex-row flex-wrap fit-to-parent">
       <div class="icon-max fit-to-parent" (click)="openOffice(office)">
-        <span class="icon-thumbnail"
-          ><i class="fas fa-user-friends"></i>
-          <p class="max-number">{{office.maxOccupants}}</p></span
-        >
+        <span class="icon-thumbnail"><i class="fas fa-user-friends"></i>
+          <p class="max-number">{{office.staff?.length}}/{{office.maxOccupants}}</p>
+        </span>
       </div>
       <div class="contact fit-to-parent">
         <div class="card-body fit-to-parent">
-          <div class="d-flex flex-row w-100 justify-content-between">
-            <div class="d-flex flex-column justify-content-between">
-              <h5 class="card-title mt-2 ml-2 mb-0">{{ office.officeName }}</h5>
-              <small class="card-text fw-lighter ml-2 mt-0">{{office.address}}</small>
-              <small class="card-text__email mb-3 ml-2 text-primary"
-                >{{office.email}}</small
-              >
-            </div>
-            <div class="d-flex flex-column justify-content-between">
-              <div class="col text-right">
-                <div
-                  ngbDropdown
-                  placement="bottom-right"
-                  class="d-inline-block"
-                >
-                  <a
-                    href="javascript:void(0);"
-                    class="text-dark d-flex flex-column align-self-end"
-                    id="dropdownBasic2"
-                    ngbDropdownToggle
-                    (click)="changeType(1)"
-                    [ngClass]="toggle1 ? 'fas fa-ellipsis-v': 'fas fa-times'"
-                  >
+          <div class="row">
+            <h5 class="card-title pl-2 mx-2 mb-0">{{ office.officeName }}</h5>
+            <div class="col text-right">
+              <div ngbDropdown placement="bottom-right" class="d-inline-block">
+                <a href="javascript:void(0);" class="text-dark d-flex flex-column align-self-end" id="dropdownBasic2"
+                  ngbDropdownToggle (click)="changeType(1)" [ngClass]="toggle1 ? 'fas fa-ellipsis-v': 'fas fa-times'">
 
-              </a>
-                  <div ngbDropdownMenu aria-labelledby="" class="box-menu">
-                    <button ngbDropdownItem class="d-flex flex-row flex-wrap justify-content-between " (click)="openModal('custom-modal-2', office)">Edit <i class="fas fa-pen"></i></button>
-                    <button ngbDropdownItem class="d-flex flex-row   flex-wrap justify-content-between" (click)="openModalDel('custom-modal-3', office)">Remove <i class="fas fa-minus-circle"></i></button>
-                  </div>
+                </a>
+                <div ngbDropdownMenu aria-labelledby="" class="box-menu">
+                  <button ngbDropdownItem class="d-flex flex-row flex-wrap justify-content-between "
+                    (click)="openModal('custom-modal-2', office)">Edit <i class="fas fa-pen"></i></button>
+                  <button ngbDropdownItem class="d-flex flex-row   flex-wrap justify-content-between"
+                    (click)="openModalDel('custom-modal-3', office)">Remove <i
+                      class="fas fa-minus-circle"></i></button>
                 </div>
               </div>
-              <p
-                class="card-text__email mt-3 d-flex align-self-end small text-primary"
-              >
-                <i class="fas fa-phone-alt text-dark px-2"></i>
-                {{office.officeTel}}
-              </p>
             </div>
+          </div>
+          <div class="row">
+            <small class="card-text fw-lighter ml-2 mt-0 pl-2 col-12">{{office.address}}</small>
+          </div>
+          <div class="row email-tel">
+            <div class="card-text__email  ml-2 text-primary pl-2 col-7">{{office.email}}</div>
+            <div class=" tel text-primary col float-right">
+              <i class="fas fa-phone-alt text-dark"></i>
+              {{office.officeTel}}
+            </div> 
           </div>
         </div>
       </div>
@@ -56,12 +44,12 @@
 <app-loading *ngIf="!offices"></app-loading>
 <!-- edit office modal -->
 
-<app-modal id="custom-modal-2" >
+<app-modal id="custom-modal-2">
   <a class="close custom-modal__close" (click)="closeModal('custom-modal-2')">&times;</a>
-  <h3  class="custom-modal__title">Edit Office</h3>
+  <h3 class="custom-modal__title">Edit Office</h3>
   <!-- Form -->
   <form [formGroup]="editOfficeForm" (ngSubmit)="saveOffice(editOfficeForm.value)" class="custom-modal__form">
-    <div class="row form-group justify-content-center" >
+    <div class="row form-group justify-content-center">
       <label>
         <input type="text" class="custom-modal__form-control" [formControlName]="'officeName'"
           placeholder="Office Name" />
@@ -76,7 +64,8 @@
 
     <div class="row form-group justify-content-center">
       <label>
-        <input type="text" class="custom-modal__form-control" [formControlName]="'officeTel'" placeholder="Office Tel" />
+        <input type="text" class="custom-modal__form-control" [formControlName]="'officeTel'"
+          placeholder="Office Tel" />
       </label>
     </div>
     <div class="row form-group justify-content-center">
@@ -93,16 +82,16 @@
       </label>
     </div>
     <div class="row form-group justify-content-center">
-        <select class="custom-modal__form-select " aria-label="office color" [formControlName]="'officeColor'">
-          <option value="" selected disabled hidden>Office color</option>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="greed">Greed</option>
-          <option value="yellow">Yellow</option>
-          <option value="purple">Purple</option>
-          <option value="pink">Pink</option>
-        </select>
-      
+      <select class="custom-modal__form-select " aria-label="office color" [formControlName]="'officeColor'">
+        <option value="" selected disabled hidden>Office color</option>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="greed">Greed</option>
+        <option value="yellow">Yellow</option>
+        <option value="purple">Purple</option>
+        <option value="pink">Pink</option>
+      </select>
+
     </div>
 
     <button type="submit" class="custom-modal__save-button">Save Office</button>
@@ -114,9 +103,9 @@
 <app-modal id="custom-modal-3">
   <a class="close custom-modal__close" (click)="closeModal('custom-modal-3');">&times;</a>
   <h3 class="custom-modal__title">Remove Office</h3>
-  <h6>Are you sure you want to <strong class="text-danger">Remove</strong ></h6>
+  <h6>Are you sure you want to <strong class="text-danger">Remove</strong></h6>
   <h5 class="custom-modal__name text-danger">{{officeName}}</h5>
-  
+
   <button (click)="removeOffice()" class="btn btn-danger">Remove</button>
 </app-modal>
 <!-- end of remove office -->
