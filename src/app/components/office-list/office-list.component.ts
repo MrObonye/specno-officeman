@@ -25,7 +25,7 @@ export class OfficeListComponent implements OnInit {
     private readonly fb: FormBuilder,
     private officeManService: OfficemanService,
     private notify: NotifyService,
-    private store: Store<{ offices: Office[] }>
+    private store: Store<AppState>
   ) {
   }
 

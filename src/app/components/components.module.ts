@@ -7,7 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule } from '@angular/common';
 
 import {EffectsModule} from '@ngrx/effects';
-import { officesReducer } from './../shared';
+import { officeReducer, officesReducer } from './../shared';
 
 import { ComponentsRoutingModule } from './components-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -33,7 +33,7 @@ import { StoreModule } from '@ngrx/store';
     FontAwesomeModule,
     RouterModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ offices: officesReducer }),
+    StoreModule.forRoot({ offices: officesReducer, office: officeReducer }),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([ OfficeEffects ]),
     NgbModule,

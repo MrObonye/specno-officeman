@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
 import { getOfficeRequest } from 'src/app/shared';
 
-import { Office } from 'src/app/shared/models/office.model';
 import { OfficemanService } from '../../../shared/services/officeman.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class OfficeDetailsComponent implements OnInit {
     private officeMan: OfficemanService,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<{office: Office}>) {
+    private store: Store<AppState>) {
     this.id = route.snapshot.params.id;
   }
 
