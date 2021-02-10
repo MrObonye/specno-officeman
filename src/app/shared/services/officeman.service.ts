@@ -26,13 +26,23 @@ export class OfficemanService {
         changes.map(offices => ({ key: offices.payload.key, ...offices.payload.val() }))));
   }
   createOffice(office: Office): any {
-    return this.officesRef.push(office).then(() => this.notify.showSuccess('Office Added Successfully!!!', 'Add Office'));
+    return this.officesRef.push(office)
+    .then(() => this.notify.showSuccess('Office Added Successfully!!!', 'ADD OFFICE'))
+    .catch(() => this.notify.showError('Oops!! Something went wrong on our side', 'UPDATE OFFICE'));
+  }
+  getOffice(key: string): any {
+    // let record = {};
+    return this.db.object(`/offices/${key}`).valueChanges();
   }
   updateOffice(office: Office): any {
-    return this.officesRef.update(office.key, office).then().catch();
+    return this.officesRef
+    .update(office.key, office).then(() => this.notify.showSuccess('Office Updated Sucessfully!', 'UPDATE OFFICE'))
+    .catch(() => this.notify.showError('Oops!! Something went wrong on our side', 'UPDATE OFFICE'));
   }
   deleteOffice(key: string): any {
-    return this.officesRef.remove(key);
+    return this.officesRef.remove(key)
+    .then(() => this.notify.showSuccess('Office Deleted Successfully!!', 'DELETE OFFICE'))
+    .catch(() => this.notify.showError('Oops!! Something went wrong on our side', 'UPDATE OFFICE'));
   }
 
   /* CRUD FOR STAFF */

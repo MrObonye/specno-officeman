@@ -11,7 +11,7 @@ import { ModalService , OfficemanService, Office, NotifyService, updateOfficeReq
   templateUrl: './office.component.html',
   styleUrls: ['./office.component.scss'],
 })
-export class OfficeComponent implements OnInit, OnDestroy {
+export class OfficeComponent implements OnInit {
   toggle1 = true;
   editOfficeForm: FormGroup;
   @Input() offices: Office[];
@@ -47,7 +47,7 @@ export class OfficeComponent implements OnInit, OnDestroy {
     if (num === 1) { this.toggle1 = !this.toggle1; }
   }
   openOffice(office: Office): void {
-    this.router.navigate([`./office/${office.id}`]);
+    this.router.navigate([`./office/${office.key}`]);
   }
 
   saveOffice(office: Office): void {
@@ -86,11 +86,5 @@ export class OfficeComponent implements OnInit, OnDestroy {
   }
   closeModal(id: string): void {
     this.modalService.close(id);
-  }
-
-
-
-  ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
   }
 }

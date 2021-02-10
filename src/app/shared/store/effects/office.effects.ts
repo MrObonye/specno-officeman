@@ -8,10 +8,13 @@ import { OfficemanService } from '../../services';
 import {
   addOfficeRequest,
   deleteOfficeRequest,
+  getOfficeDone,
+  getOfficeRequest,
   refreshOfficesDone,
   refreshOfficesRequest,
   updateOfficeRequest
 } from '../actions/office.actions';
+import { Office } from '../../models';
 
 @Injectable()
 export class OfficeEffects {
@@ -38,6 +41,15 @@ export class OfficeEffects {
         map(() => this.store.dispatch(refreshOfficesRequest()))
       );
     })
+  );
+
+  @Effect()
+  getOffice$ = this.action$.pipe(
+    ofType(getOfficeRequest),
+    switchMap((action) => this.OFMService.getOffice(action.key)
+    .pipe(
+      map((office: Office) =>  getOfficeDone({ office })))
+    )
   );
 
   @Effect()
