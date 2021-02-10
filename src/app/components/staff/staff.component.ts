@@ -38,11 +38,11 @@ export class StaffComponent implements OnInit, OnDestroy {
       firstName: new FormControl(''),
       lastName: new FormControl('')
     });
-    this.subscription = this.officeManService.getAllStaff(this.office.key).subscribe((items: Staff[]) => {
+    /* this.subscription = this.officeManService.getAllStaff(this.office.key).subscribe((items: Staff[]) => {
       this.staffMembers = items.filter(staff => staff.officeId === this.office.id);
       this.filteredData = items.filter(staff => staff.officeId === this.office.id);
 
-    });
+    }); */
 
     if (!this.staffMembers === undefined) {
       this.filteredData = this.staffMembers;

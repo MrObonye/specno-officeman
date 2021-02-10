@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/app.state';
+import { getOfficeRequest } from 'src/app/shared';
 
-import { Office } from 'src/app/shared/models/office.model';
 import { OfficemanService } from '../../../shared/services/officeman.service';
 
 @Component({
@@ -10,25 +11,22 @@ import { OfficemanService } from '../../../shared/services/officeman.service';
   templateUrl: './office-details.component.html',
   styleUrls: ['./office-details.component.scss']
 })
-export class OfficeDetailsComponent implements OnInit, OnDestroy {
+export class OfficeDetailsComponent implements OnInit {
 
-  officeData: Office[];
-  office: Office;
+  office$ = this.store.pipe(select(theState => theState.office));
+  // office: Office;
   id: string;
-  subscription: Subscription;
-  constructor(private officeMan: OfficemanService, private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private officeMan: OfficemanService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<AppState>) {
     this.id = route.snapshot.params.id;
   }
 
   ngOnInit(): void {
-    this.subscription = this.officeMan.getAll().subscribe((item: Office[]) => {
-      this.officeData = item;
-      this.officeData.forEach((office: Office) => office.id === this.id ? this.office = office : null ); });
-  }
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    const key = this.id;
+    this.store.dispatch(getOfficeRequest({key}));
   }
 
 }
