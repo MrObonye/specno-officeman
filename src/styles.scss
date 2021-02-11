@@ -12,7 +12,7 @@ html {
   box-sizing: inherit;
 }
 body {
-  //  background-color: #212529;
+  background-color: whitesmoke;
   margin: 0;
   padding: 0;
   // font-size: $font-med;
@@ -29,8 +29,6 @@ body {
 a:visited,
 a:hover {
   text-decoration: none;
+ 
 }
 }
-
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';

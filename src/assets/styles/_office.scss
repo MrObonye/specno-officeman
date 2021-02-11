@@ -11,18 +11,19 @@ nav {
     position: relative;
     display: inline-block;
     background-color: white;
-    border-radius: 50px;
+    border-radius: 3.125rem;
     border: 0;
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 300;
-    padding: 5px 23px 5px;
+    padding: 0.3125rem 1.4375rem 0.3125rem;
   }
 }
 .list-group-item {
-  margin-left: 16px;
-  margin-right: 18px;
+  margin-left: 1rem;
+  margin-right: 1.125rem;
+  margin-bottom: 1rem;
   padding: 0;
-  height: 90px;
+  height: 4.75rem;
   text-align: center;
 }
 .icon-max {
@@ -32,10 +33,10 @@ nav {
     rgba(97, 190, 206, 0.849),
     rgb(110, 110, 224)
   );
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   width: 15%;
   color: white;
-  line-height: 24px;
+  line-height: 1.5rem;
   .icon-thumbnail {
     position: absolute;
     top: 60%;
@@ -47,7 +48,7 @@ nav {
     color: white;
   }
   .max-number {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 600;
   }
 }
@@ -58,11 +59,15 @@ nav {
   width: 85%;
   .card-body {
     position: relative;
-    padding: 5px;
-    line-height: 14px;
+    padding: 0.3125rem;
+    line-height: 0.875rem;
     width: 100%;
+    .card-title {
+      font-size: 1rem;
+    }
     .card-text {
-      font-weight: 600;
+      font-weight: 500;
+      font-size: 0.835rem;
     }
   }
 
@@ -76,10 +81,16 @@ nav {
   height: 100%;
 }
   .right {
-	margin-right: -100px;
-	margin-left: 85px;
+	margin-right: -6.25rem;
+	margin-left: 5.3125rem;
 }
 .card-text{
   color: grey;
 }
 
+.email-tel {
+  font-size: 0.725rem;
+}
+a .fa-ellipsis-v, .fa-times, .fa-pen, .fa-minus-circle {
+  color: gray;
+}

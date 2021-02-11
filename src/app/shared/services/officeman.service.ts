@@ -7,6 +7,7 @@ import { AngularFireList } from '@angular/fire/database';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotifyService } from './notify.service';
+import { officeReducer } from '../store';
 
 @Injectable({
   providedIn: 'root'
@@ -55,17 +56,20 @@ export class OfficemanService {
   }
 
   createStaff(staff: Staff): any {
+    console.log(staff);
+    
     this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
-    staff.id = this.getRandomString(24);
-    return this.staffRef.push(staff);
+    return this.staffRef.push(staff).then(() => this.notify.showSuccess('Staff member added Sucessfully!', 'ADD STAFF'));
   }
   updateStaff(staff: Staff): any {
+    console.log(staff);
+    
     this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
-    return this.staffRef.update(staff.key, staff);
+    return this.staffRef.update(staff.key, staff).then(() => this.notify.showSuccess('Staff member updated successfully', 'UPDATE STAFF'));
   }
   deleteStaff(staff: Staff): any {
     this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
-    return this.staffRef.remove(staff.key).then().catch(err => console.error(err));
+    return this.staffRef.remove(staff.key).then().catch(err => console.error(err)).then(() => this.notify.showSuccess('Staff deleted successfully!!', 'DELETE STAFF'   ));
   }
   getRandomString(length): string {
     const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

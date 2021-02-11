@@ -1,4 +1,4 @@
-.dropdown-toggle::after {
+/* .dropdown-toggle::after {
     // content: "";
     visibility: hidden;
 }
@@ -9,4 +9,12 @@
 // }
 .dropdown-toggle:empty::after {
     margin-left: -34px;
-}
+} */
+/* .dropdown-menu, .show {
+    position: absolute;
+    transform: translate3d(62px, 38px, 0px);
+    top: -20px!important;
+    left: -52px!important;
+    will-change: transform;
+    z-index: 1000;
+} */

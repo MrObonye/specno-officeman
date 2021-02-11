@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.state';
-import { getOfficeRequest } from 'src/app/shared';
+import { getOfficeRequest, Office } from 'src/app/shared';
 
 import { OfficemanService } from '../../../shared/services/officeman.service';
 
@@ -13,7 +14,7 @@ import { OfficemanService } from '../../../shared/services/officeman.service';
 })
 export class OfficeDetailsComponent implements OnInit {
 
-  office$ = this.store.pipe(select(theState => theState.office));
+  office$: Observable<Office> = this.store.pipe(select(theState => theState.office));
   // office: Office;
   id: string;
   constructor(

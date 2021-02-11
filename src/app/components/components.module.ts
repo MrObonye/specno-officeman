@@ -7,7 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CommonModule } from '@angular/common';
 
 import {EffectsModule} from '@ngrx/effects';
-import { officeReducer, officesReducer } from './../shared';
+import { officeReducer, officesReducer, StaffEffects, staffMembersReducer } from './../shared';
 
 import { ComponentsRoutingModule } from './components-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -22,20 +22,21 @@ import {  ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent, ModalModule } from '../shared';
 import { StaffComponent } from './staff/staff.component';
 import { StoreModule } from '@ngrx/store';
+import { NgInitDirective } from '../shared/directives/nginit.directive';
 
 
 
 @NgModule({
-  declarations: [OfficeComponent, OfficeListComponent, OfficeDetailsComponent, StaffComponent, LoadingComponent],
+  declarations: [OfficeComponent, OfficeListComponent, OfficeDetailsComponent, StaffComponent, LoadingComponent, NgInitDirective],
   imports: [
     CommonModule,
     ComponentsRoutingModule,
     FontAwesomeModule,
     RouterModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ offices: officesReducer, office: officeReducer }),
+    StoreModule.forRoot({ offices: officesReducer, office: officeReducer, staffMembers: staffMembersReducer }),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([ OfficeEffects ]),
+    EffectsModule.forRoot([ OfficeEffects, StaffEffects ]),
     NgbModule,
     ModalModule],
 })

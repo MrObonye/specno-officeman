@@ -1,10 +1,11 @@
+import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { Subscription } from 'rxjs';
-import { ModalService , OfficemanService, Office, NotifyService, updateOfficeRequest, deleteOfficeRequest } from '../../../shared';
+import { AppState } from 'src/app/app.state';
+import { ModalService, OfficemanService, Office, NotifyService, updateOfficeRequest, deleteOfficeRequest } from '../../../shared';
 
 @Component({
   selector: 'app-office',
@@ -15,17 +16,17 @@ export class OfficeComponent implements OnInit {
   toggle1 = true;
   editOfficeForm: FormGroup;
   @Input() offices: Office[];
+  current = [];
   officeName: string;
   id: string;
-  subscription: Subscription;
+  @Input() staff: number;
 
   constructor(
     private router: Router,
     private modalService: ModalService,
     private readonly fb: FormBuilder,
-    private officeMan: OfficemanService,
-    private notify: NotifyService,
-    private store: Store<{offices: Office[]}>
+    private store: Store<AppState>,
+    private OFMS: OfficemanService
   ) {
   }
 
@@ -38,6 +39,8 @@ export class OfficeComponent implements OnInit {
       maxOccupants: new FormControl(''),
       officeColor: new FormControl('')
     });
+
+    // getAllStaff directive here
   }
   get f(): any {
     return this.editOfficeForm.controls;
@@ -54,21 +57,18 @@ export class OfficeComponent implements OnInit {
 
     if (this.id) {
       office.key = this.id;
-      this.store.dispatch(updateOfficeRequest({office}));
+      this.store.dispatch(updateOfficeRequest({ office }));
     }
     this.editOfficeForm.reset();
     this.closeModal('custom-modal-2');
   }
   removeOffice(): void {
     const key = this.id;
-    // this.officeMan.removeOffice(this.id);
-    // this.officeMan.deleteOffice(this.id).then(() => this.notify.showSuccess('Office deleted successfully!', 'Delete Office'));
-    this.store.dispatch(deleteOfficeRequest({key}));
+    this.store.dispatch(deleteOfficeRequest({ key }));
     this.modalService.close('custom-modal-3');
 
   }
   openModal(id: string, office: Office): void {
-    // this.officeMan.broadcastOffice(office);
     this.id = office.key;
     this.f.officeName.setValue(office.officeName);
     this.f.email.setValue(office.email);
@@ -87,4 +87,12 @@ export class OfficeComponent implements OnInit {
   closeModal(id: string): void {
     this.modalService.close(id);
   }
+  officeKey(officekey: any) {
+    const count = Object.values(officekey);
+
+    this.staff = count.length;
+    console.log(officekey);
+  }
+
 }
+
