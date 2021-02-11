@@ -7,6 +7,7 @@ import { AngularFireList } from '@angular/fire/database';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotifyService } from './notify.service';
+import { officeReducer } from '../store';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +57,6 @@ export class OfficemanService {
 
   createStaff(staff: Staff): any {
     this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
-    staff.id = this.getRandomString(24);
     return this.staffRef.push(staff);
   }
   updateStaff(staff: Staff): any {

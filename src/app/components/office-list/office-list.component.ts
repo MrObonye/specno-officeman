@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import {
   Office, OfficemanService, ModalService,
@@ -24,7 +23,6 @@ export class OfficeListComponent implements OnInit {
     private modalService: ModalService,
     private readonly fb: FormBuilder,
     private officeManService: OfficemanService,
-    private notify: NotifyService,
     private store: Store<AppState>
   ) {
   }
