@@ -47,12 +47,9 @@ export class StaffComponent implements OnInit {
       lastName: new FormControl('')
     });
     this.filteredData.subscribe(data => this.staffMembers = this.buffer = data);
-    if (this.office.key === undefined) {
-      this.store.dispatch(refreshStaffMembersRequest({ key: this.id }));
 
-    } else {
-      this.store.dispatch(refreshStaffMembersRequest({ key: this.office.key }));
-    }
+    this.store.dispatch(refreshStaffMembersRequest({ key: this.id }));
+
 
   }
   get f(): any {
@@ -95,11 +92,15 @@ export class StaffComponent implements OnInit {
   }
   saveStaff(staffMember: Staff): void {
     if (this.staffMembers.length < this.office.maxOccupants) {
-      if (this.office.id) {
+      
+      
+      if (this.office) {
         staffMember.officeId = this.office.id;
-        staffMember.officeKey = this.office.key;
+        staffMember.officeKey = this.id;
         staffMember.id = this.officeManService.getRandomString(24);
-        this.store.dispatch(addStaffRequest({staffMember}));
+        this.store.dispatch(addStaffRequest({ staffMember }));
+      } else {
+        this.notify.showError('Oops! Something wrong on our side!!!', 'Add Staff');
       }
     } else {
       this.notify.showError('Oops! We have reached maximum capacity', 'Add Staff');
@@ -114,14 +115,14 @@ export class StaffComponent implements OnInit {
     staffMember.officeId = this.staff.officeId;
     staffMember.key = this.staff.key;
 
-    this.store.dispatch(updateStaffRequest({staffMember}));
+    this.store.dispatch(updateStaffRequest({ staffMember }));
     this.staffForm.reset();
     this.modalService.close('custom-modal-2');
   }
   removeStaff(): void {
     if (this.staff) {
       const staffMember = this.staff;
-      this.store.dispatch(deleteStaffRequest({staffMember}));
+      this.store.dispatch(deleteStaffRequest({ staffMember }));
     }
     this.modalService.close('custom-modal-3');
   }
