@@ -28,14 +28,16 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-
-            ]
+             "scripts": [
+               "node_modules/jquery/dist/jquery.min.js",
+               "node_modules/popper.js/dist/umd/popper.min.js",
+               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+             ]
           },
           "configurations": {
             "production": {
@@ -48,7 +50,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,

@@ -1,0 +1,96 @@
+nav {
+  background-image: linear-gradient(
+    to top,
+    rgba(97, 190, 206, 0.849),
+    rgb(110, 110, 224)
+  );
+  color: white;
+
+  button,
+  .button {
+    position: relative;
+    display: inline-block;
+    background-color: white;
+    border-radius: 3.125rem;
+    border: 0;
+    font-size: 0.625rem;
+    font-weight: 300;
+    padding: 0.3125rem 1.4375rem 0.3125rem;
+  }
+}
+.list-group-item {
+  margin-left: 1rem;
+  margin-right: 1.125rem;
+  margin-bottom: 1rem;
+  padding: 0;
+  height: 4.75rem;
+  text-align: center;
+}
+.icon-max {
+  position: relative;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(97, 190, 206, 0.849),
+    rgb(110, 110, 224)
+  );
+  border-radius: 0.3125rem;
+  width: 15%;
+  color: white;
+  line-height: 1.5rem;
+  .icon-thumbnail {
+    position: absolute;
+    top: 60%;
+    left: 25%;
+    transform: translateY(-50%);
+  }
+
+  fa-icon {
+    color: white;
+  }
+  .max-number {
+    font-size: 0.625rem;
+    font-weight: 600;
+  }
+}
+.contact {
+  position: relative;
+  background-color: whitesmoke;
+  text-align: left;
+  width: 85%;
+  .card-body {
+    position: relative;
+    padding: 0.3125rem;
+    line-height: 0.875rem;
+    width: 100%;
+    .card-title {
+      font-size: 1rem;
+    }
+    .card-text {
+      font-weight: 500;
+      font-size: 0.835rem;
+    }
+  }
+
+  &__card__right {
+    position: relative;
+    width: 50%;
+  }
+}
+.fit-to-parent {
+  position: relative;
+  height: 100%;
+}
+  .right {
+	margin-right: -6.25rem;
+	margin-left: 5.3125rem;
+}
+.card-text{
+  color: grey;
+}
+
+.email-tel {
+  font-size: 0.725rem;
+}
+a .fa-ellipsis-v, .fa-times, .fa-pen, .fa-minus-circle {
+  color: gray;
+}

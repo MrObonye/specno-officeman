@@ -1,0 +1,108 @@
+<ul class="list-group my-3">
+  <li class="list-group-item  card shadow" *ngFor="let office of offices; let i=index;">
+    <div class="d-flex flex-row flex-wrap fit-to-parent">
+      <div class="icon-max fit-to-parent" (click)="openOffice(office)">
+        <span class="icon-thumbnail"><i class="fas fa-user-friends"></i>
+          <p class="max-number" *ngIf="count.length >1">{{ +count[i] + 0| number}}/{{office.maxOccupants}}</p>
+         
+        </span>
+      </div>
+      <div class="contact fit-to-parent">
+        <div class="card-body fit-to-parent">
+          <div class="row">
+            <h5 class="card-title pl-2 mx-2 mb-0">{{ office.officeName }}</h5>
+            <div class="col text-right dropleft">
+              <button class="btn btn-link " type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="fa fa-ellipsis-v"></span>
+              </button>
+              <ul class="dropdown-menu " aria-labelledby="dropdownKebab">
+                <li><a href="#"(click)="openModal('custom-modal-2', office)" class="d-flex flex-row justify-content-between align-self-end p-1">Edit <i class="fas fa-pen"></i></a></li>
+                <li><a href="#"(click)="openModalDel('custom-modal-3', office)" class="d-flex flex-row justify-content-between p-1">Remove <i
+                  class="fas fa-minus-circle"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <small class="card-text fw-lighter ml-2 mt-0 pl-2 col-12">{{office.address}}</small>
+          </div>
+          <div class="row email-tel">
+            <div class="card-text__email  ml-2 text-primary pl-2 col-6 col-lg-10">{{office.email}}</div>
+            <div class=" tel text-primary col float-right">
+              <i class="fas fa-phone-alt text-dark"></i>
+              {{office.officeTel}}
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  
+</ul>
+<app-loading *ngIf="!offices"></app-loading>
+<!-- edit office modal -->
+
+<app-modal id="custom-modal-2">
+  <a class="close custom-modal__close" (click)="closeModal('custom-modal-2')">&times;</a>
+  <h3 class="custom-modal__title">Edit Office</h3>
+
+  <form [formGroup]="editOfficeForm" (ngSubmit)="saveOffice(editOfficeForm.value)" class="custom-modal__form">
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="text" class="custom-modal__form-control" [formControlName]="'officeName'"
+          placeholder="Office Name" />
+      </label>
+    </div>
+
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="email" class="custom-modal__form-control" [formControlName]="'email'" placeholder="Email Address" />
+      </label>
+    </div>
+
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="tel" class="custom-modal__form-control" [formControlName]="'officeTel'"
+          placeholder="Office Tel" />
+      </label>
+    </div>
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="text" class="custom-modal__form-control" [formControlName]="'address'" placeholder="Address" />
+      </label>
+    </div>
+
+
+    <div class="row form-group justify-content-center">
+      <label>
+        <input type="number" class="custom-modal__form-control" [formControlName]="'maxOccupants'"
+          placeholder="Max number of occupants" />
+      </label>
+    </div>
+    <div class="row form-group justify-content-center">
+      <select class="custom-modal__form-select " aria-label="office color" [formControlName]="'officeColor'">
+        <option value="" selected disabled hidden>Office color</option>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="greed">Greed</option>
+        <option value="yellow">Yellow</option>
+        <option value="purple">Purple</option>
+        <option value="pink">Pink</option>
+      </select>
+
+    </div>
+
+    <button type="submit" class="custom-modal__save-button">Save Office</button>
+  </form>
+</app-modal>
+<!-- end of edit office modal -->
+
+<!-- remove office modal -->
+<app-modal id="custom-modal-3">
+  <a class="close custom-modal__close" (click)="closeModal('custom-modal-3');">&times;</a>
+  <h3 class="custom-modal__title">Remove Office</h3>
+  <h6>Are you sure you want to <strong class="text-danger">Remove</strong></h6>
+  <h5 class="custom-modal__name text-danger">{{officeName}}</h5>
+
+  <button (click)="removeOffice()" class="btn btn-danger">Remove</button>
+</app-modal>
+<!-- end of remove office -->
