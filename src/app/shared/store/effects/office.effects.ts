@@ -1,6 +1,11 @@
+/*
+This class is used to handle integration to firebase.
+Every action that is dispatched fires an effect to
+handle all CRUD functions to firebase
+*/
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect, Effect } from '@ngrx/effects';
-import { EMPTY, Observable, of } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 
@@ -22,7 +27,10 @@ export class OfficeEffects {
 
   }
 
-  // @Effect()
+  /* listens to actions for the refreshOfficeRequest action
+    when the action is dispatched the effect calls getAll method from
+    officeservice to retrieve all offices from firebase and saves them to the Ngrx store
+  */
   refreshOffices$: Observable<Action> = createEffect(() => this.action$.pipe(
     ofType(refreshOfficesRequest),
     mergeMap(() => this.OFMService.getAll()
@@ -33,13 +41,13 @@ export class OfficeEffects {
   )
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   addOffice$ = this.action$.pipe(
     ofType(addOfficeRequest),
     map((action) => {
       return this.OFMService.createOffice(action.office),
         ofType(refreshOfficesRequest
-      );
+        );
     })
   );
 
@@ -47,22 +55,22 @@ export class OfficeEffects {
   getOffice$ = this.action$.pipe(
     ofType(getOfficeRequest),
     switchMap((action) => this.OFMService.getOffice(action.key)
-    .pipe(
-      map((office: Office) =>  getOfficeDone({ office })))
+      .pipe(
+        map((office: Office) => getOfficeDone({ office })))
     )
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   updateOffice$ = this.action$.pipe(
     ofType(updateOfficeRequest),
     map((action) => {
       return this.OFMService.updateOffice(action.office),
         ofType(refreshOfficesRequest
-      );
+        );
     }),
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   deleteOffice$ = this.action$.pipe(
     ofType(deleteOfficeRequest),
     map((action) => {

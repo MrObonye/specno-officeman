@@ -18,7 +18,7 @@
   </div>
 
   <ul *ngFor="let staff of staffMembers; let i = index" class="mt-3">
-    <li >
+    <li>
       <div class="d-flex flex-row flex-wrap fit-to-parent text-dark">
         <div class="icon-thumbnail bg-primary text-white">
           <i class="fas fa-user icon"></i>
@@ -37,7 +37,8 @@
                   </button>
                   <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight9">
                     <li><a (click)="openModalEdit('custom-modal-2', staff)"
-                        class="d-flex flex-row   flex-wrap justify-content-between p-1">Edit <i class="fas fa-pen"></i></a>
+                        class="d-flex flex-row   flex-wrap justify-content-between p-1">Edit <i
+                          class="fas fa-pen"></i></a>
                     </li>
                     <li><a (click)="openModalDel('custom-modal-3', staff)"
                         class="d-flex flex-row   flex-wrap justify-content-between p-1">Remove <i

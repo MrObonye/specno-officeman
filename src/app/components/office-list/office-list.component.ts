@@ -1,13 +1,10 @@
-import { state } from '@angular/animations';
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
 
 import { AppState } from 'src/app/app.state';
 import {
-  Office, OfficemanService, ModalService,
-  NotifyService, refreshOfficesRequest, addOfficeRequest
+  Office, OfficemanService, ModalService, refreshOfficesRequest, addOfficeRequest
 } from 'src/app/shared';
 
 @Component({
@@ -28,6 +25,7 @@ export class OfficeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /* Generate a reactive form */
     this.addOfficeForm = this.fb.group({
       officeName: new FormControl(''),
       email: new FormControl(''),
@@ -37,6 +35,7 @@ export class OfficeListComponent implements OnInit {
       officeColor: new FormControl('')
     });
 
+    // Dispatch an action to retrieve office from NgRx store
     this.store.dispatch(refreshOfficesRequest());
 
   }
