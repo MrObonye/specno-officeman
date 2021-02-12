@@ -1,11 +1,10 @@
-import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
 import { AppState } from 'src/app/app.state';
-import { ModalService, OfficemanService, Office, NotifyService, updateOfficeRequest, deleteOfficeRequest } from '../../../shared';
+import { ModalService, OfficemanService, Office, updateOfficeRequest, deleteOfficeRequest, refreshOfficesRequest } from '../../../shared';
 
 @Component({
   selector: 'app-office',
@@ -16,8 +15,8 @@ export class OfficeComponent implements OnInit {
   toggle1 = true;
   editOfficeForm: FormGroup;
   @Input() offices: Office[];
-  current = [];
   officeName: string;
+  count = [{}];
   id: string;
   @Input() staff: number;
 
@@ -41,13 +40,25 @@ export class OfficeComponent implements OnInit {
     });
 
     // getAllStaff directive here
+    this.store.dispatch(refreshOfficesRequest());
+    const staff = this.store.pipe(select((theState) => theState.offices));
+    this.count.length = 0;
+    staff.subscribe(data => {
+      data.forEach((item) => {
+        let counter = 0;
+        if (item.staff) {
+          counter = Object.values(item.staff).length;
+        } else {
+          counter = 0;
+        }
+        this.count.push(counter);
+      });
+
+    });
+
   }
   get f(): any {
     return this.editOfficeForm.controls;
-  }
-  changeType(num: number): void {
-
-    if (num === 1) { this.toggle1 = !this.toggle1; }
   }
   openOffice(office: Office): void {
     this.router.navigate([`./office/${office.key}`]);
@@ -86,12 +97,6 @@ export class OfficeComponent implements OnInit {
   }
   closeModal(id: string): void {
     this.modalService.close(id);
-  }
-  officeKey(officekey: any) {
-    const count = Object.values(officekey);
-
-    this.staff = count.length;
-    console.log(officekey);
   }
 
 }

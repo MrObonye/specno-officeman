@@ -56,14 +56,10 @@ export class OfficemanService {
   }
 
   createStaff(staff: Staff): any {
-    console.log(staff);
-    
     this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
     return this.staffRef.push(staff).then(() => this.notify.showSuccess('Staff member added Sucessfully!', 'ADD STAFF'));
   }
   updateStaff(staff: Staff): any {
-    console.log(staff);
-    
     this.staffRef = this.db.list(`/offices/${staff.officeKey}/staff`);
     return this.staffRef.update(staff.key, staff).then(() => this.notify.showSuccess('Staff member updated successfully', 'UPDATE STAFF'));
   }
