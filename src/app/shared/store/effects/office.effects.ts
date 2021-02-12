@@ -33,12 +33,12 @@ export class OfficeEffects {
   )
   );
 
-  @Effect()
+  @Effect({dispatch: false})
   addOffice$ = this.action$.pipe(
     ofType(addOfficeRequest),
-    switchMap((action) => {
-      return this.OFMService.createOffice(action.office).pipe(
-        map(() => this.store.dispatch(refreshOfficesRequest()))
+    map((action) => {
+      return this.OFMService.createOffice(action.office),
+        ofType(refreshOfficesRequest
       );
     })
   );
@@ -52,23 +52,23 @@ export class OfficeEffects {
     )
   );
 
-  @Effect()
+  @Effect({dispatch: false})
   updateOffice$ = this.action$.pipe(
     ofType(updateOfficeRequest),
-    mergeMap((action) => {
-      return this.OFMService.updateOffice(action.office).pipe(
-        map(() => refreshOfficesRequest())
+    map((action) => {
+      return this.OFMService.updateOffice(action.office),
+        ofType(refreshOfficesRequest
       );
     }),
   );
 
-  @Effect()
+  @Effect({dispatch: false})
   deleteOffice$ = this.action$.pipe(
     ofType(deleteOfficeRequest),
-    switchMap((action) => {
-      return this.OFMService.deleteOffice(action.key).pipe(
-        map(() => of(this.store.dispatch(refreshOfficesRequest()))
-        ));
+    map((action) => {
+      return this.OFMService.deleteOffice(action.key),
+        ofType((refreshOfficesRequest)
+        );
     }),
   );
 }

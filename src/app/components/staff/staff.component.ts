@@ -92,8 +92,7 @@ export class StaffComponent implements OnInit {
   }
   saveStaff(staffMember: Staff): void {
     if (this.staffMembers.length < this.office.maxOccupants) {
-      
-      
+
       if (this.office) {
         staffMember.officeId = this.office.id;
         staffMember.officeKey = this.id;

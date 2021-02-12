@@ -37,7 +37,7 @@ export class StaffEffects {
   addStaff$ = this.action$.pipe(
     ofType(addStaffRequest),
     map((action) => action.staffMember),
-      switchMap(staff => this.OFMService.createStaff(staff)),
+      map(staff => this.OFMService.createStaff(staff)),
       ofType(refreshStaffMembersRequest),
       );
 
