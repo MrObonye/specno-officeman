@@ -1,3 +1,9 @@
+/*
+A reducer hosts selectors to retrieve a list of Offices or an
+Office from the NgRx store to the components that consumes
+the state
+
+*/
 import { createReducer, on } from '@ngrx/store';
 import { Office } from '../../models';
 

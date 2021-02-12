@@ -4,7 +4,7 @@
       <div class="icon-max fit-to-parent" (click)="openOffice(office)">
         <span class="icon-thumbnail"><i class="fas fa-user-friends"></i>
           <p class="max-number" *ngIf="count.length >1">{{ +count[i] + 0| number}}/{{office.maxOccupants}}</p>
-          <!-- <p class="max-number" *ngIf="count === null">0/{{office.maxOccupants}}</p> -->
+         
         </span>
       </div>
       <div class="contact fit-to-parent">
@@ -44,7 +44,7 @@
 <app-modal id="custom-modal-2">
   <a class="close custom-modal__close" (click)="closeModal('custom-modal-2')">&times;</a>
   <h3 class="custom-modal__title">Edit Office</h3>
-  <!-- Form -->
+
   <form [formGroup]="editOfficeForm" (ngSubmit)="saveOffice(editOfficeForm.value)" class="custom-modal__form">
     <div class="row form-group justify-content-center">
       <label>
@@ -55,13 +55,13 @@
 
     <div class="row form-group justify-content-center">
       <label>
-        <input type="text" class="custom-modal__form-control" [formControlName]="'email'" placeholder="Email Address" />
+        <input type="email" class="custom-modal__form-control" [formControlName]="'email'" placeholder="Email Address" />
       </label>
     </div>
 
     <div class="row form-group justify-content-center">
       <label>
-        <input type="text" class="custom-modal__form-control" [formControlName]="'officeTel'"
+        <input type="tel" class="custom-modal__form-control" [formControlName]="'officeTel'"
           placeholder="Office Tel" />
       </label>
     </div>
@@ -74,7 +74,7 @@
 
     <div class="row form-group justify-content-center">
       <label>
-        <input type="text" class="custom-modal__form-control" [formControlName]="'maxOccupants'"
+        <input type="number" class="custom-modal__form-control" [formControlName]="'maxOccupants'"
           placeholder="Max number of occupants" />
       </label>
     </div>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import { AppState } from 'src/app/app.state';
 import { ModalService, OfficemanService, Office, updateOfficeRequest, deleteOfficeRequest, refreshOfficesRequest } from '../../../shared';
@@ -16,9 +17,10 @@ export class OfficeComponent implements OnInit {
   editOfficeForm: FormGroup;
   @Input() offices: Office[];
   officeName: string;
-  count = [{}];
+  count = [];
   id: string;
   @Input() staff: number;
+  subscription: Subscription;
 
   constructor(
     private router: Router,
@@ -39,11 +41,11 @@ export class OfficeComponent implements OnInit {
       officeColor: new FormControl('')
     });
 
-    // getAllStaff directive here
+    // This method it used to count the number of occupants
     this.store.dispatch(refreshOfficesRequest());
     const staff = this.store.pipe(select((theState) => theState.offices));
     this.count.length = 0;
-    staff.subscribe(data => {
+    this.subscription = staff.subscribe(data => {
       data.forEach((item) => {
         let counter = 0;
         if (item.staff) {
@@ -97,6 +99,10 @@ export class OfficeComponent implements OnInit {
   }
   closeModal(id: string): void {
     this.modalService.close(id);
+  }
+  // to prevent memory leaks close the subscription
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
