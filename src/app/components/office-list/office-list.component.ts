@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 
 import { AppState } from 'src/app/app.state';
@@ -27,11 +27,11 @@ export class OfficeListComponent implements OnInit {
   ngOnInit(): void {
     /* Generate a reactive form */
     this.addOfficeForm = this.fb.group({
-      officeName: new FormControl(''),
-      email: new FormControl(''),
-      officeTel: new FormControl(''),
-      address: new FormControl(''),
-      maxOccupants: new FormControl(''),
+      officeName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      officeTel: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      maxOccupants: new FormControl('', Validators.required),
       officeColor: new FormControl('')
     });
 
@@ -51,10 +51,12 @@ export class OfficeListComponent implements OnInit {
 
   // method to save office
   saveOffice(office: Office): void {
-    office.id = this.officeManService.getRandomString(24);
-    this.store.dispatch(addOfficeRequest({ office }));
-    this.closeModal('custom-modal-1');
-    this.addOfficeForm.reset();
+    if (this.addOfficeForm.valid) {
+      office.id = this.officeManService.getRandomString(24);
+      this.store.dispatch(addOfficeRequest({ office }));
+      this.closeModal('custom-modal-1');
+      this.addOfficeForm.reset();
+    }
   }
 
 }
