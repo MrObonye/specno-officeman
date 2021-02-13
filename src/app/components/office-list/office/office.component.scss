@@ -18,3 +18,7 @@
     will-change: transform;
     z-index: 1000;
 } */
+.custom-modal__save-button[disabled] {
+    background-color: #acacac;
+    color: rgb(70, 70, 70);
+}

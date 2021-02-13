@@ -10,28 +10,57 @@
   <h3 class="custom-modal__title">Add Office</h3>
   <!-- Form -->
   <form [formGroup]="addOfficeForm" (ngSubmit)="saveOffice(addOfficeForm.value)" class="custom-modal__form">
-    <div class="row form-group justify-content-center" >
+    <div class="row form-group justify-content-center">
       <label>
         <input type="text" class="custom-modal__form-control" [formControlName]="'officeName'"
           placeholder="Office Name" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.officeName.touched || f.officeName.submitted) && f.officeName.errors?.required">
+        Office name is required
+      </span>
+      </div>
     </div>
 
     <div class="row form-group justify-content-center">
       <label>
-        <input type="email" class="custom-modal__form-control" [formControlName]="'email'" placeholder="Email Address" />
+        <input type="email" class="custom-modal__form-control" [formControlName]="'email'"
+          placeholder="Email Address" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.email.touched || f.email.submitted) && f.email.errors?.required">
+        Email is required
+      </span>
+      <span class="text-danger small" *ngIf="f.email.touched && f.email.errors?.email">
+        Enter a valid email address
+      </span>
+      </div>
+      
     </div>
 
     <div class="row form-group justify-content-center">
       <label>
         <input type="tel" class="custom-modal__form-control" [formControlName]="'officeTel'" placeholder="Office Tel" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.officeTel.touched || f.officeTel.submitted) && f.officeTel.errors?.required">
+        Office Telephone is required
+      </span>
+      </div>
     </div>
     <div class="row form-group justify-content-center">
       <label>
         <input type="text" class="custom-modal__form-control" [formControlName]="'address'" placeholder="Address" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.address.touched || f.address.submitted) && f.address.errors?.required">
+        Office address is required
+      </span>
+      </div>
     </div>
 
 
@@ -40,21 +69,27 @@
         <input type="number" class="custom-modal__form-control" [formControlName]="'maxOccupants'"
           placeholder="Max number of occupants" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.maxOccupants.touched || f.maxOccupants.submitted) && f.maxOccupants.errors?.required">
+        Office Capacity is required
+      </span>
+      </div>
     </div>
     <div class="row form-group justify-content-center">
-        <select class="custom-modal__form-select " aria-label="office color" [formControlName]="'officeColor'">
-          <option value="" selected disabled hidden>Office color</option>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="greed">Greed</option>
-          <option value="yellow">Yellow</option>
-          <option value="purple">Purple</option>
-          <option value="pink">Pink</option>
-        </select>
-      
+      <select class="custom-modal__form-select " aria-label="office color" [formControlName]="'officeColor'">
+        <option value="" selected disabled hidden>Office color</option>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="greed">Greed</option>
+        <option value="yellow">Yellow</option>
+        <option value="purple">Purple</option>
+        <option value="pink">Pink</option>
+      </select>
+
     </div>
 
-    <button type="submit" class="custom-modal__save-button">Save Office</button>
+    <button type="submit" class="custom-modal__save-button" [disabled]="!addOfficeForm.valid"> Office</button>
   </form>
 
 

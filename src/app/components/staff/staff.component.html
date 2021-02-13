@@ -73,16 +73,28 @@
         <input type="text" class="custom-modal__form-control" [formControlName]="'firstName'"
           placeholder="First Name" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.firstName.touched || f.firstName.submitted) && f.firstName.errors?.required">
+        First name is required
+      </span>
+      </div>
     </div>
 
     <div class="row form-group justify-content-center">
       <label>
         <input type="text" class="custom-modal__form-control" [formControlName]="'lastName'" placeholder="Last Name" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.lastName.touched || f.lastName.submitted) && f.lastName.errors?.required">
+        Last name is required
+      </span>
+      </div>
     </div>
 
 
-    <button type="submit" class="custom-modal__save-button">Save Staff</button>
+    <button type="submit" class="custom-modal__save-button" [disabled]="!staffForm.valid">Save Staff</button>
   </form>
 
 

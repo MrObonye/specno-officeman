@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -33,11 +33,11 @@ export class OfficeComponent implements OnInit {
 
   ngOnInit(): void {
     this.editOfficeForm = this.fb.group({
-      officeName: new FormControl(''),
-      email: new FormControl(''),
-      officeTel: new FormControl(''),
-      address: new FormControl(''),
-      maxOccupants: new FormControl(''),
+      officeName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      officeTel: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      maxOccupants: new FormControl('', Validators.required),
       officeColor: new FormControl('')
     });
 
