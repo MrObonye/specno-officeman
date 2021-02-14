@@ -1,5 +1,6 @@
+import { leadingComment } from '@angular/compiler';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -12,12 +13,12 @@ import { ModalService, OfficemanService, Office, updateOfficeRequest, deleteOffi
   templateUrl: './office.component.html',
   styleUrls: ['./office.component.scss'],
 })
-export class OfficeComponent implements OnInit {
+export class OfficeComponent implements OnInit, OnDestroy {
   toggle1 = true;
   editOfficeForm: FormGroup;
   @Input() offices: Office[];
   officeName: string;
-  count = [];
+  @Input() count = [];
   id: string;
   @Input() staff: number;
   subscription: Subscription;
@@ -33,11 +34,11 @@ export class OfficeComponent implements OnInit {
 
   ngOnInit(): void {
     this.editOfficeForm = this.fb.group({
-      officeName: new FormControl(''),
-      email: new FormControl(''),
-      officeTel: new FormControl(''),
-      address: new FormControl(''),
-      maxOccupants: new FormControl(''),
+      officeName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      officeTel: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      maxOccupants: new FormControl('', Validators.required),
       officeColor: new FormControl('')
     });
 
@@ -57,6 +58,7 @@ export class OfficeComponent implements OnInit {
       });
 
     });
+
 
   }
   get f(): any {
@@ -101,8 +103,9 @@ export class OfficeComponent implements OnInit {
     this.modalService.close(id);
   }
   // to prevent memory leaks close the subscription
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.count.length = 0;
   }
 
 }

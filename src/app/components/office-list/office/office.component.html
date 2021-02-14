@@ -3,7 +3,7 @@
     <div class="d-flex flex-row flex-wrap fit-to-parent">
       <div class="icon-max fit-to-parent" (click)="openOffice(office)">
         <span class="icon-thumbnail"><i class="fas fa-user-friends"></i>
-          <p class="max-number" *ngIf="count.length >1">{{ +count[i] + 0| number}}/{{office.maxOccupants}}</p>
+          <p class="max-number" *ngIf="count.length >1">{{ +count[i] + 0 }}/{{office.maxOccupants}}</p>
          
         </span>
       </div>
@@ -12,12 +12,12 @@
           <div class="row">
             <h5 class="card-title pl-2 mx-2 mb-0">{{ office.officeName }}</h5>
             <div class="col text-right dropleft">
-              <button class="btn btn-link " type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <a class="btn btn-link p-0" type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="fa fa-ellipsis-v"></span>
-              </button>
+              </a>
               <ul class="dropdown-menu " aria-labelledby="dropdownKebab">
-                <li><a href="#"(click)="openModal('custom-modal-2', office)" class="d-flex flex-row justify-content-between align-self-end p-1">Edit <i class="fas fa-pen"></i></a></li>
-                <li><a href="#"(click)="openModalDel('custom-modal-3', office)" class="d-flex flex-row justify-content-between p-1">Remove <i
+                <li><a href="#"(click)="openModal('custom-modal-2', office)" class=" d-flex flex-row justify-content-between align-self-end p-1 text-gray">Edit <i class="fas fa-pen"></i></a></li>
+                <li><a href="#"(click)="openModalDel('custom-modal-3', office)" class="d-flex flex-row justify-content-between p-1 text-gray">Remove <i
                   class="fas fa-minus-circle"></i></a></li>
               </ul>
             </div>
@@ -51,12 +51,27 @@
         <input type="text" class="custom-modal__form-control" [formControlName]="'officeName'"
           placeholder="Office Name" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.officeName.touched || f.officeName.submitted) && f.officeName.errors?.required">
+        Office name is required
+      </span>
+      </div>
     </div>
 
     <div class="row form-group justify-content-center">
       <label>
         <input type="email" class="custom-modal__form-control" [formControlName]="'email'" placeholder="Email Address" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.email.touched || f.email.submitted) && f.email.errors?.required">
+        Email is required
+      </span>
+      <span class="text-danger small" *ngIf="f.email.touched && f.email.errors?.email">
+        Enter a valid email address
+      </span>
+      </div>
     </div>
 
     <div class="row form-group justify-content-center">
@@ -64,11 +79,23 @@
         <input type="tel" class="custom-modal__form-control" [formControlName]="'officeTel'"
           placeholder="Office Tel" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.officeTel.touched || f.officeTel.submitted) && f.officeTel.errors?.required">
+        Office Telephone is required
+      </span>
+      </div>
     </div>
     <div class="row form-group justify-content-center">
       <label>
         <input type="text" class="custom-modal__form-control" [formControlName]="'address'" placeholder="Address" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.address.touched || f.address.submitted) && f.address.errors?.required">
+        Office address is required
+      </span>
+      </div>
     </div>
 
 
@@ -77,6 +104,12 @@
         <input type="number" class="custom-modal__form-control" [formControlName]="'maxOccupants'"
           placeholder="Max number of occupants" />
       </label>
+      <div class="col-12">
+        <span class="text-danger small"
+        *ngIf="(f.maxOccupants.touched || f.maxOccupants.submitted) && f.maxOccupants.errors?.required">
+        Office Capacity is required
+      </span>
+      </div>
     </div>
     <div class="row form-group justify-content-center">
       <select class="custom-modal__form-select " aria-label="office color" [formControlName]="'officeColor'">
@@ -91,7 +124,7 @@
 
     </div>
 
-    <button type="submit" class="custom-modal__save-button">Save Office</button>
+    <button type="submit" class="custom-modal__save-button" [disabled]="!editOfficeForm.valid">Save Office</button>
   </form>
 </app-modal>
 <!-- end of edit office modal -->

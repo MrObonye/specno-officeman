@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Staff } from 'src/app/shared/models/staff.model';
 import { Subject, Subscription } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { OfficemanService } from 'src/app/shared/services/officeman.service';
 import { Office } from 'src/app/shared/models/office.model';
@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './staff.component.html',
   styleUrls: ['./staff.component.scss']
 })
-export class StaffComponent implements OnInit {
+export class StaffComponent implements OnInit, OnDestroy {
   staffMembers: Staff[];
   buffer: Staff[];
   startAt = new Subject();
@@ -29,6 +29,7 @@ export class StaffComponent implements OnInit {
   filteredData = this.store.pipe(select(theState => theState.staffMembers));
   id: string;
   @Input() office: Office = null;
+  sub: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -43,10 +44,10 @@ export class StaffComponent implements OnInit {
 
   ngOnInit(): void {
     this.staffForm = this.fb.group({
-      firstName: new FormControl(''),
-      lastName: new FormControl('')
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required)
     });
-    this.filteredData.subscribe(data => this.staffMembers = this.buffer = data);
+    this.sub = this.filteredData.subscribe(data => this.staffMembers = this.buffer = data);
 
     this.store.dispatch(refreshStaffMembersRequest({ key: this.id }));
 
@@ -69,6 +70,7 @@ export class StaffComponent implements OnInit {
   }
   // TODO fix types for staff
   openModal(id: string): void {
+    this.staffForm.reset();
     this.modalService.open(id);
   }
   openModalEdit(id: string, staff: Staff): void {
@@ -91,6 +93,9 @@ export class StaffComponent implements OnInit {
     this.modalService.close(id);
   }
   saveStaff(staffMember: Staff): void {
+    if (!this.staffForm.valid) {
+      return;
+    }
     if (this.staffMembers.length < this.office.maxOccupants) {
 
       if (this.office) {
@@ -130,6 +135,9 @@ export class StaffComponent implements OnInit {
     this.staff = staff;
     this.f.firstName.setValue(staff.firstName);
     this.f.lastName.setValue(staff.lastName);
+  }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }

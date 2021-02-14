@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 
 import { AppState } from 'src/app/app.state';
@@ -15,6 +15,7 @@ import {
 export class OfficeListComponent implements OnInit {
   addOfficeForm: FormGroup;
   officesOutput$ = this.store.pipe(select(theState => theState.offices));
+  count = [];
 
   constructor(
     private modalService: ModalService,
@@ -27,11 +28,11 @@ export class OfficeListComponent implements OnInit {
   ngOnInit(): void {
     /* Generate a reactive form */
     this.addOfficeForm = this.fb.group({
-      officeName: new FormControl(''),
-      email: new FormControl(''),
-      officeTel: new FormControl(''),
-      address: new FormControl(''),
-      maxOccupants: new FormControl(''),
+      officeName: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      officeTel: new FormControl('', Validators.required),
+      address: new FormControl('', Validators.required),
+      maxOccupants: new FormControl('', Validators.required),
       officeColor: new FormControl('')
     });
 
@@ -43,6 +44,7 @@ export class OfficeListComponent implements OnInit {
     return this.addOfficeForm.controls;
   }
   openModal(id: string): void {
+    this.addOfficeForm.reset();
     this.modalService.open(id);
   }
   closeModal(id: string): void {
@@ -51,10 +53,13 @@ export class OfficeListComponent implements OnInit {
 
   // method to save office
   saveOffice(office: Office): void {
-    office.id = this.officeManService.getRandomString(24);
-    this.store.dispatch(addOfficeRequest({ office }));
-    this.closeModal('custom-modal-1');
-    this.addOfficeForm.reset();
+    if (this.addOfficeForm.valid) {
+      office.id = this.officeManService.getRandomString(24);
+      this.count = [];
+      this.store.dispatch(addOfficeRequest({ office }));
+      this.closeModal('custom-modal-1');
+      this.addOfficeForm.reset();
+    }
   }
 
 }
