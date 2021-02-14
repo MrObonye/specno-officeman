@@ -1,3 +1,4 @@
+import { leadingComment } from '@angular/compiler';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,12 +13,12 @@ import { ModalService, OfficemanService, Office, updateOfficeRequest, deleteOffi
   templateUrl: './office.component.html',
   styleUrls: ['./office.component.scss'],
 })
-export class OfficeComponent implements OnInit {
+export class OfficeComponent implements OnInit, OnDestroy {
   toggle1 = true;
   editOfficeForm: FormGroup;
   @Input() offices: Office[];
   officeName: string;
-  count = [];
+  @Input() count = [];
   id: string;
   @Input() staff: number;
   subscription: Subscription;
@@ -40,6 +41,7 @@ export class OfficeComponent implements OnInit {
       maxOccupants: new FormControl('', Validators.required),
       officeColor: new FormControl('')
     });
+    console.log(this.count);
 
     // This method it used to count the number of occupants
     this.store.dispatch(refreshOfficesRequest());
@@ -57,6 +59,8 @@ export class OfficeComponent implements OnInit {
       });
 
     });
+    console.log('second count: ' + this.count);
+
 
   }
   get f(): any {
@@ -101,8 +105,9 @@ export class OfficeComponent implements OnInit {
     this.modalService.close(id);
   }
   // to prevent memory leaks close the subscription
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.count.length = 0;
   }
 
 }
