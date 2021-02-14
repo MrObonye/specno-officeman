@@ -1,23 +1,22 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {  ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OfficeEditComponent } from './office-details.component';
 
-describe('OfficeEditComponent', () => {
-  let component: OfficeEditComponent;
-  let fixture: ComponentFixture<OfficeEditComponent>;
+import { OfficeDetailsComponent} from './office-details.component';
 
-  beforeEach(async(() => {
+describe('OfficeDetailsComponent', () => {
+  let component: OfficeDetailsComponent;
+  let fixture: ComponentFixture<OfficeDetailsComponent>;
+
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [ OfficeEditComponent ]
+      declarations: [ OfficeDetailsComponent]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OfficeEditComponent);
+    fixture = TestBed.createComponent(OfficeDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
