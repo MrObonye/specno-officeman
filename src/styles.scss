@@ -31,4 +31,12 @@ a:hover {
   text-decoration: none;
  
 }
+.custom-modal__save-button[disabled] {
+  background-color: #acacac;
+  color: rgb(70, 70, 70);
+}
+.text-gray{
+  color: gray;
+  font-weight: 500;
+}
 }

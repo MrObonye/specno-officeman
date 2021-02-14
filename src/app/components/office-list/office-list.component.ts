@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 
@@ -15,6 +15,7 @@ import {
 export class OfficeListComponent implements OnInit {
   addOfficeForm: FormGroup;
   officesOutput$ = this.store.pipe(select(theState => theState.offices));
+  count = [];
 
   constructor(
     private modalService: ModalService,
@@ -43,6 +44,7 @@ export class OfficeListComponent implements OnInit {
     return this.addOfficeForm.controls;
   }
   openModal(id: string): void {
+    this.addOfficeForm.reset();
     this.modalService.open(id);
   }
   closeModal(id: string): void {
@@ -53,6 +55,7 @@ export class OfficeListComponent implements OnInit {
   saveOffice(office: Office): void {
     if (this.addOfficeForm.valid) {
       office.id = this.officeManService.getRandomString(24);
+      this.count = [];
       this.store.dispatch(addOfficeRequest({ office }));
       this.closeModal('custom-modal-1');
       this.addOfficeForm.reset();
