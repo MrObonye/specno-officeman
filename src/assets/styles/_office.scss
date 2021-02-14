@@ -39,11 +39,13 @@ nav {
   line-height: 1.5rem;
   .icon-thumbnail {
     position: absolute;
-    top: 60%;
-    left: 25%;
+    top: 67%;
+    left: 32%;
     transform: translateY(-50%);
   }
-
+  .fa-ellipsis-v::after:active {
+    content:'&times;' ;
+  }
   fa-icon {
     color: white;
   }
@@ -60,7 +62,7 @@ nav {
   .card-body {
     position: relative;
     padding: 0.3125rem;
-    line-height: 0.875rem;
+    line-height: 0.975rem;
     width: 100%;
     .card-title {
       font-size: 1rem;
