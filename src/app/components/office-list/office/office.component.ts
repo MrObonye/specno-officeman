@@ -41,7 +41,6 @@ export class OfficeComponent implements OnInit, OnDestroy {
       maxOccupants: new FormControl('', Validators.required),
       officeColor: new FormControl('')
     });
-    console.log(this.count);
 
     // This method it used to count the number of occupants
     this.store.dispatch(refreshOfficesRequest());
@@ -59,7 +58,6 @@ export class OfficeComponent implements OnInit, OnDestroy {
       });
 
     });
-    console.log('second count: ' + this.count);
 
 
   }

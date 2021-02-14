@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './staff.component.html',
   styleUrls: ['./staff.component.scss']
 })
-export class StaffComponent implements OnInit {
+export class StaffComponent implements OnInit, OnDestroy {
   staffMembers: Staff[];
   buffer: Staff[];
   startAt = new Subject();
@@ -29,6 +29,7 @@ export class StaffComponent implements OnInit {
   filteredData = this.store.pipe(select(theState => theState.staffMembers));
   id: string;
   @Input() office: Office = null;
+  sub: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +47,7 @@ export class StaffComponent implements OnInit {
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required)
     });
-    this.filteredData.subscribe(data => this.staffMembers = this.buffer = data);
+    this.sub = this.filteredData.subscribe(data => this.staffMembers = this.buffer = data);
 
     this.store.dispatch(refreshStaffMembersRequest({ key: this.id }));
 
@@ -69,6 +70,7 @@ export class StaffComponent implements OnInit {
   }
   // TODO fix types for staff
   openModal(id: string): void {
+    this.staffForm.reset();
     this.modalService.open(id);
   }
   openModalEdit(id: string, staff: Staff): void {
@@ -133,6 +135,9 @@ export class StaffComponent implements OnInit {
     this.staff = staff;
     this.f.firstName.setValue(staff.firstName);
     this.f.lastName.setValue(staff.lastName);
+  }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }

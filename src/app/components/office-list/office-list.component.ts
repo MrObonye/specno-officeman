@@ -44,6 +44,7 @@ export class OfficeListComponent implements OnInit {
     return this.addOfficeForm.controls;
   }
   openModal(id: string): void {
+    this.addOfficeForm.reset();
     this.modalService.open(id);
   }
   closeModal(id: string): void {
