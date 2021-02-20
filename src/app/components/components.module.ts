@@ -18,7 +18,7 @@ import {OfficeDetailsComponent} from './office-list/office-details/office-detail
 import {OfficeEffects} from './../shared/store/effects/office.effects';
 
 
-import {  ReactiveFormsModule } from '@angular/forms';
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent, ModalModule } from '../shared';
 import { StaffComponent } from './staff/staff.component';
 import { StoreModule } from '@ngrx/store';
@@ -34,6 +34,7 @@ import { NgInitDirective } from '../shared/directives/nginit.directive';
     FontAwesomeModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
     StoreModule.forRoot({ offices: officesReducer, office: officeReducer, staffMembers: staffMembersReducer }),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([ OfficeEffects, StaffEffects ]),
