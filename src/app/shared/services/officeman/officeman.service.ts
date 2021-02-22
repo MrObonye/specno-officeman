@@ -12,7 +12,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NotifyService } from './notify.service';
+import { NotifyService } from '../notify/notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,8 @@ export class OfficemanService {
   }
 
   /*  A function to create an office and returns a message on successful request
-   or an error message on failure */
+   or an error message on failure
+   */
   createOffice(office: Office): any {
     return this.officesRef.push(office)
       .then(() => this.notify.showSuccess('Office Added Successfully!!!', 'ADD OFFICE'))
