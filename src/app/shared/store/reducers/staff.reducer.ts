@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Staff } from '../../models';
+import { Staff } from '../../../models';
 import { refreshStaffMembersDone } from '../actions/staff.actions';
 
 

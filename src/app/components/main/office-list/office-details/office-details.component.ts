@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { AppState } from 'src/app/app.state';
 import { getOfficeRequest, Office } from 'src/app/shared';
 
-import { OfficemanService } from '../../../../shared/services/officeman/officeman.service';
+import { OfficemanService } from '../../../../services/officeman/officeman.service';
 
 @Component({
   selector: 'app-office-details',

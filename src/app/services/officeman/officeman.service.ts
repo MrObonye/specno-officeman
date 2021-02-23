@@ -5,8 +5,8 @@ which use the service.
 
 */
 import { Injectable } from '@angular/core';
-import { Office } from 'src/app/shared/models/office.model';
-import { Staff } from 'src/app/shared/models/staff.model';
+import { Office } from 'src/app/models/office.model';
+import { Staff } from 'src/app/models/staff.model';
 
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireList } from '@angular/fire/database';

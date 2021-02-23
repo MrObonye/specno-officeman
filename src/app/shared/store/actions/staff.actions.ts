@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Staff} from '../../models';
+import { Staff} from '../../../models';
 
 export const refreshStaffMembersRequest = createAction('[Staff] Refresh Staff Request', props<{key: string}>());
 export const refreshStaffMembersDone = createAction('[Staff] Refresh Staffs Done', props<{staffMembers: Staff[]}>());

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Office } from '../../models';
+import { Office } from '../../../models';
 
 export const refreshOfficesRequest = createAction('[Office] Refresh Office Request');
 export const refreshOfficesDone = createAction('[Office] Refresh Offices Done', props<{offices: Office[]}>());

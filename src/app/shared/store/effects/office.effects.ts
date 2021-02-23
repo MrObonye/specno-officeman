@@ -9,7 +9,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 
-import { OfficemanService } from '../../services';
+import { OfficemanService } from '../../../services';
 import {
   addOfficeRequest,
   deleteOfficeRequest,
@@ -19,7 +19,7 @@ import {
   refreshOfficesRequest,
   updateOfficeRequest
 } from '../actions/office.actions';
-import { Office } from '../../models';
+import { Office } from '../../../models';
 
 @Injectable()
 export class OfficeEffects {
