@@ -4,7 +4,7 @@ import { EMPTY, Observable, of } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 
-import { OfficemanService } from '../../../services';
+import { OfficemanService } from '../../services';
 import {
   addStaffRequest,
   deleteStaffRequest,
@@ -14,7 +14,7 @@ import {
   refreshStaffMembersRequest,
   updateStaffRequest
 } from '../actions/staff.actions';
-import { Staff } from '../../../models';
+import { Staff } from '../../models';
 
 @Injectable()
 export class StaffEffects {

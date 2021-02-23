@@ -15,7 +15,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { RouterModule } from '@angular/router';
 import { OfficeListComponent } from './main/office-list/office-list.component';
 import {OfficeDetailsComponent} from './main/office-list/office-details/office-details.component';
-import {OfficeEffects} from './../shared/store/effects/office.effects';
+import {OfficeEffects} from '../store/effects/office.effects';
 
 
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
