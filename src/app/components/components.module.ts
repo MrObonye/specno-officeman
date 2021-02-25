@@ -34,11 +34,6 @@ import { NgInitDirective } from '../shared/directives/nginit.directive';
     FontAwesomeModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule,
-    StoreModule.forRoot({ offices: officesReducer, office: officeReducer, staffMembers: staffMembersReducer }),
-    StoreDevtoolsModule.instrument(),
-    EffectsModule.forRoot([ OfficeEffects, StaffEffects ]),
-    NgbModule,
     ModalModule],
 })
 export class ComponentsModule {

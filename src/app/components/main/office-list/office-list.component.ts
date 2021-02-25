@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store, select } from '@ngrx/store';
 
 import { AppState } from 'src/app/app.state';
+import * as fromStore from '../../../store/state';
+import { Logout } from '../../../store/actions/auth.actions';
 import {
   Office, OfficemanService, ModalService, refreshOfficesRequest, addOfficeRequest
 } from 'src/app/shared';
@@ -14,15 +16,20 @@ import {
 })
 export class OfficeListComponent implements OnInit {
   addOfficeForm: FormGroup;
-  officesOutput$ = this.store.pipe(select(theState => theState.offices));
+  officesOutput$ = this.store.pipe(select(theState => []));
   count = [];
 
   constructor(
     private modalService: ModalService,
     private readonly fb: FormBuilder,
     private officeManService: OfficemanService,
-    private store: Store<AppState>
+    // private store: Store<AppState>,
+    private store: Store<fromStore.State>
   ) {
+  }
+
+  logout() {
+    this.store.dispatch(new Logout());
   }
 
   ngOnInit(): void {
