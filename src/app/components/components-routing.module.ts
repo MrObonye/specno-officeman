@@ -1,14 +1,15 @@
 
-import { OfficeDetailsComponent } from './office-list/office-details/office-details.component';
+import { OfficeDetailsComponent } from './main/office-list/office-details/office-details.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { OfficeListComponent } from './office-list/office-list.component';
+import { OfficeListComponent } from './main/office-list/office-list.component';
+import { AuthGuardService } from '../services';
 
 
 const routes: Routes = [
-  { path: '', component: OfficeListComponent },
-  { path: 'office/:id', component: OfficeDetailsComponent }
+  { path: '', component: OfficeListComponent, canActivate: [AuthGuardService]},
+  { path: 'office/:id', component: OfficeDetailsComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
