@@ -1,10 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Staff } from 'src/app/shared/models/staff.model';
+import { Staff } from 'src/app/models/staff.model';
 import { Subject, Subscription } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalService } from 'src/app/shared/services/modal.service';
-import { OfficemanService } from 'src/app/shared/services/officeman.service';
-import { Office } from 'src/app/shared/models/office.model';
+import { ModalService } from 'src/app/services/modal.service';
+import { OfficemanService } from 'src/app/services/officeman/officeman.service';
+import { Office } from 'src/app/models/office.model';
 import { addStaffRequest, deleteStaffRequest, NotifyService, refreshStaffMembersRequest, updateStaffRequest } from 'src/app/shared';
 import { AppState } from 'src/app/app.state';
 import { Store, select } from '@ngrx/store';
