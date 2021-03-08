@@ -19,7 +19,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { officesReducer, officeReducer, staffMembersReducer, OfficeEffects, StaffEffects} from './store';
 import {reducers, metaReducers} from './store/state';
 import { AuthEffects } from './store/effects/auth.effects';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -41,7 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     StoreDevtoolsModule.instrument({
       logOnly: environment.production
     }),
-    EffectsModule.forRoot([ OfficeEffects, StaffEffects, AuthEffects ]),
+    EffectsModule.forRoot([ AuthEffects ]),
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     NgbModule
