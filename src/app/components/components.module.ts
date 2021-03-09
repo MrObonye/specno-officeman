@@ -1,5 +1,4 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { faEllipsisV, faPhoneAlt, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { OfficeComponent } from './main/office-list/office/office.component';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -45,7 +44,4 @@ import { OfficeEffects } from './main/effects/office.effects';
     EffectsModule.forFeature([ OfficeEffects])],
 })
 export class ComponentsModule {
-  constructor() {
-    library.add(faPhoneAlt, faEllipsisV, faUserFriends);
-  }
 }

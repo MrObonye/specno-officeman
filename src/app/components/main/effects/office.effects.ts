@@ -21,8 +21,7 @@ export class OfficeEffects {
     mergeMap(() => this.OFMService.getAll()
       .pipe(
         map(offices => {
-          console.log(offices);
-
+          // console.log(offices);
           return officesLoaded({ offices });
         }),
         catchError(() => EMPTY)

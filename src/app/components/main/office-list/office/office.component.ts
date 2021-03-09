@@ -8,7 +8,7 @@ import {
   OfficemanService,
   Office,
 } from '../../../../shared';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import * as fromOffices from './../../reducers/office.reducers';
 import * as OfficesPageActions from './../../actions/offices.actions';
@@ -27,7 +27,7 @@ export class OfficeComponent implements OnInit, OnDestroy {
   @Input() count = [];
   id: string;
   @Input() staff: number;
-  // subscription: Subscription;
+   subscription: Subscription;
 
   constructor(
     private router: Router,
@@ -52,7 +52,7 @@ export class OfficeComponent implements OnInit, OnDestroy {
 
     // This method it used to count the number of occupants
     // this.store.dispatch(refreshOfficesRequest());
-    /* const staff = this.store.pipe(select((theState) => theState.offices));
+    const staff = this.offices;
     this.count.length = 0;
     // tslint:disable-next-line: deprecation
     this.subscription = staff.subscribe((data) => {
@@ -67,7 +67,6 @@ export class OfficeComponent implements OnInit, OnDestroy {
       });
 
     });
- */
 
   }
   get f(): any {
@@ -113,7 +112,7 @@ export class OfficeComponent implements OnInit, OnDestroy {
   }
   // to prevent memory leaks close the subscription
   ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
     this.count.length = 0;
   }
 
