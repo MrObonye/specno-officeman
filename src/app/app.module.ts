@@ -36,14 +36,15 @@ import { MatDialogModule } from '@angular/material/dialog';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MatDialogModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
+    NgbModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production
     }),
     EffectsModule.forRoot([ AuthEffects ]),
-    ToastrModule.forRoot(),
-    BrowserAnimationsModule,
-    NgbModule
+
 
   ],
   providers: [],

@@ -1,10 +1,10 @@
 <ul class="list-group my-3">
-  <li class="list-group-item  card shadow" *ngFor="let office of offices; let i=index;">
+  <li class="list-group-item  card shadow" *ngFor="let office of offices | async; let i=index;">
     <div class="d-flex flex-row flex-wrap fit-to-parent">
       <div class="icon-max fit-to-parent" (click)="openOffice(office)">
         <span class="icon-thumbnail"><i class="fas fa-user-friends"></i>
           <p class="max-number" *ngIf="count.length >1">{{ +count[i] + 0 }}/{{office.maxOccupants}}</p>
-         
+
         </span>
       </div>
       <div class="contact fit-to-parent">
@@ -23,22 +23,22 @@
             </div>
           </div>
           <div class="row">
-            <small class="card-text fw-lighter ml-2 mt-0 pl-2 col-12">{{office.address}}</small>
+            <small class="card-text fw-lighter ml-2 mt-0 pl-2 col-12">{{office.address }}</small>
           </div>
           <div class="row email-tel">
             <div class="card-text__email  ml-2 text-primary pl-2 col-6 col-lg-10">{{office.email}}</div>
             <div class=" tel text-primary col float-right">
               <i class="fas fa-phone-alt text-dark"></i>
               {{office.officeTel}}
-            </div> 
+            </div>
           </div>
         </div>
       </div>
     </div>
   </li>
-  
+
 </ul>
-<app-loading *ngIf="!offices"></app-loading>
+<!-- <app-loading *ngIf="!offices"></app-loading> -->
 <!-- edit office modal -->
 
 <app-modal id="custom-modal-2">
