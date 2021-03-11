@@ -1,5 +1,5 @@
 <ul class="list-group my-3">
-  <li class="list-group-item  card shadow" *ngFor="let office of offices | async; let i=index;">
+  <li class="list-group-item  card shadow" *ngFor="let office of (offices | async); let i=index;">
     <div class="d-flex flex-row flex-wrap fit-to-parent">
       <div class="icon-max fit-to-parent" (click)="openOffice(office)">
         <span class="icon-thumbnail"><i class="fas fa-user-friends"></i>

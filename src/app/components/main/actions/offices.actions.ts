@@ -8,3 +8,5 @@ export const officesLoadFail = createAction('Offices Page] Load Offices Failed')
 export const officeAdd = createAction('[Offices Page] Add Office', props<{ office: Office }>());
 export const officeDelete = createAction('[Office Page] Delete Page', props<{ key: string }>());
 export const officeEdit = createAction('[Office Page] Edit Office', props<{ office: Office }>());
+export const getOffice = createAction('[Office Details] Load Office', props<{key: string}>());
+export const getOfficeSuccess = createAction('[Office Details] Load Details Success', props<{office: Office}>());

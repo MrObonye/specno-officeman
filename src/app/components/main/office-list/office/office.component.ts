@@ -73,7 +73,7 @@ export class OfficeComponent implements OnInit, OnDestroy {
     return this.editOfficeForm.controls;
   }
   openOffice(office: Office): void {
-    this.router.navigate([`./office/${office.key}`]);
+    this.router.navigate([`./${office.key}`]);
   }
 
   saveOffice(office: Office): void {

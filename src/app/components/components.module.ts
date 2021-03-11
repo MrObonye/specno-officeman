@@ -17,12 +17,13 @@ import {OfficeDetailsComponent} from './main/office-list/office-details/office-d
 
 
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoadingComponent, ModalModule } from '../shared';
+import { LoadingComponent, ModalModule, StaffEffects } from '../shared';
 import { StaffComponent } from './main/staff/staff.component';
 import { StoreModule } from '@ngrx/store';
 import { NgInitDirective } from '../shared/directives/nginit.directive';
 import { delOfficeReducer, reducer, reducers } from './main/reducers/office.reducers';
 import { OfficeEffects } from './main/effects/office.effects';
+import { staffMembersReducer } from './main/reducers/staff.reducer';
 
 
 
@@ -42,8 +43,9 @@ import { OfficeEffects } from './main/effects/office.effects';
     StoreModule.forFeature('offices', reducers),
     StoreModule.forFeature('office', reducer),
     StoreModule.forFeature('delOffice', delOfficeReducer),
+    StoreModule.forFeature('staff', staffMembersReducer),
     StoreDevtoolsModule.instrument(),
-    EffectsModule.forFeature([ OfficeEffects])],
+    EffectsModule.forFeature([ OfficeEffects, StaffEffects])],
 })
 export class ComponentsModule {
 }

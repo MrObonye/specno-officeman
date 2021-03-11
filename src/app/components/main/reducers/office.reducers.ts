@@ -21,6 +21,7 @@ export const reducer = createReducer<Office>(
   office,
   on(OfficePageActions.officeAdd, (_, action) => action.office),
   on(OfficePageActions.officeEdit, (_, action) => action.office),
+  on(OfficePageActions.getOfficeSuccess, (_, action) => action.office)
 );
 export const delOfficeReducer = createReducer<string> (
   '',
