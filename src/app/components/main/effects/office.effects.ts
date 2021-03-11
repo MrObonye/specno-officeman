@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import { OfficemanService } from 'src/app/shared';
-import { officesLoad, officesLoaded } from '../actions/offices.actions';
+import { officeAdd, officeDelete, officeEdit, officesLoad, officesLoaded } from '../actions/offices.actions';
 
 @Injectable()
 export class OfficeEffects {
@@ -27,4 +27,28 @@ export class OfficeEffects {
         catchError(() => EMPTY)
       ))
   ));
+
+  @Effect({dispatch: false})
+  addOffice$ = this.action$.pipe(
+    ofType(officeAdd),
+    map((action) => {
+      return this.OFMService.createOffice(action.office),
+      ofType(officesLoad);
+    })
+  );
+
+  @Effect({dispatch: false})
+  editOffice$ = this.action$.pipe(
+    ofType(officeEdit),
+    map((action) => {
+      return this.OFMService.updateOffice(action.office),
+      ofType(officesLoad);
+    })
+  );
+  @Effect({dispatch: false})
+  deleteOffice$ = this.action$.pipe(
+    ofType(officeDelete),
+    map((action) => this.OFMService.deleteOffice(action.key)
+    )
+  );
 }

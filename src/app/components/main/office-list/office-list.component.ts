@@ -8,6 +8,7 @@ import { Logout } from '../../../store/actions/auth.actions';
 import {
   Office, OfficemanService, ModalService, refreshOfficesRequest, addOfficeRequest
 } from 'src/app/shared';
+import { officeAdd } from '../actions/offices.actions';
 // import { OfficesPageActionTypes } from 'src/app/components/main/actions/offices-page.actions';
 
 @Component({
@@ -64,7 +65,7 @@ export class OfficeListComponent implements OnInit {
     if (this.addOfficeForm.valid) {
       office.id = this.officeManService.getRandomString(24);
       this.count = [];
-      this.store.dispatch(addOfficeRequest({ office }));
+      this.store.dispatch(officeAdd({ office }));
       this.closeModal('custom-modal-1');
       this.addOfficeForm.reset();
     }

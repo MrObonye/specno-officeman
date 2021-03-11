@@ -21,7 +21,7 @@ import { LoadingComponent, ModalModule } from '../shared';
 import { StaffComponent } from './main/staff/staff.component';
 import { StoreModule } from '@ngrx/store';
 import { NgInitDirective } from '../shared/directives/nginit.directive';
-import { reducers } from './main/reducers/office.reducers';
+import { delOfficeReducer, reducer, reducers } from './main/reducers/office.reducers';
 import { OfficeEffects } from './main/effects/office.effects';
 
 
@@ -40,6 +40,8 @@ import { OfficeEffects } from './main/effects/office.effects';
     ReactiveFormsModule,
     ModalModule,
     StoreModule.forFeature('offices', reducers),
+    StoreModule.forFeature('office', reducer),
+    StoreModule.forFeature('delOffice', delOfficeReducer),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forFeature([ OfficeEffects])],
 })

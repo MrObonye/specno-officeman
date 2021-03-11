@@ -80,14 +80,14 @@ export class OfficeComponent implements OnInit, OnDestroy {
 
     if (this.id) {
       office.key = this.id;
-      // this.store.dispatch(updateOfficeRequest({ office }));
+      this.store.dispatch(OfficesPageActions.officeEdit({ office }));
     }
     this.editOfficeForm.reset();
     this.closeModal('custom-modal-2');
   }
   removeOffice(): void {
     const key = this.id;
-    // this.store.dispatch(deleteOfficeRequest({ key }));
+    this.store.dispatch(OfficesPageActions.officeDelete({ key }));
     this.modalService.close('custom-modal-3');
 
   }
