@@ -40,6 +40,10 @@ export class OfficeDetailsComponent implements OnInit, OnDestroy {
         }
       });
     });
+
+    if (this.office === undefined) {
+      this.router.navigate(['/']);
+    }
   }
 
   ngOnDestroy(): void {

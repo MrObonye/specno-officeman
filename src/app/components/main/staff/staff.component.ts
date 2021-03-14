@@ -8,7 +8,7 @@ import { Office } from 'src/app/models/office.model';
 import { addStaffRequest, deleteStaffRequest, NotifyService, refreshStaffMembersRequest, updateStaffRequest } from 'src/app/shared';
 import * as AppState from './../reducers/staff.reducer';
 import { Store, select } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
