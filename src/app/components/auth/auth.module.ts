@@ -11,6 +11,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogoutPromptComponent } from './logoutprompts.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthEffects } from 'src/app/store/effects/auth.effects';
+import { reducers } from 'src/app/store/state';
+import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [LoginPageComponent, LoginFormComponent, LogoutPromptComponent],
@@ -22,7 +28,7 @@ import { LogoutPromptComponent } from './logoutprompts.component';
     MatCardModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   entryComponents: [LogoutPromptComponent],
 })

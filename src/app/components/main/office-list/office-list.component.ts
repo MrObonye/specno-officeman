@@ -2,12 +2,14 @@ import { Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 
-import { AppState } from 'src/app/app.state';
+// import { AppState } from 'src/app/app.state';
 import * as fromStore from '../../../store/state';
 import { Logout } from '../../../store/actions/auth.actions';
 import {
   Office, OfficemanService, ModalService, refreshOfficesRequest, addOfficeRequest
 } from 'src/app/shared';
+import { officeAdd } from '../actions/offices.actions';
+// import { OfficesPageActionTypes } from 'src/app/components/main/actions/offices-page.actions';
 
 @Component({
   selector: 'app-office-list',
@@ -16,7 +18,7 @@ import {
 })
 export class OfficeListComponent implements OnInit {
   addOfficeForm: FormGroup;
-  officesOutput$ = this.store.pipe(select(theState => []));
+  // officesOutput$ = this.store.pipe(select(theState => theState.offices));
   count = [];
 
   constructor(
@@ -44,7 +46,7 @@ export class OfficeListComponent implements OnInit {
     });
 
     // Dispatch an action to retrieve office from NgRx store
-    this.store.dispatch(refreshOfficesRequest());
+    // this.store.dispatch(new OfficesPageActions.Load());
 
   }
   get f(): any {
@@ -63,7 +65,7 @@ export class OfficeListComponent implements OnInit {
     if (this.addOfficeForm.valid) {
       office.id = this.officeManService.getRandomString(24);
       this.count = [];
-      this.store.dispatch(addOfficeRequest({ office }));
+      this.store.dispatch(officeAdd({ office }));
       this.closeModal('custom-modal-1');
       this.addOfficeForm.reset();
     }

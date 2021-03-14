@@ -1,12 +1,18 @@
-import { leadingComment } from '@angular/compiler';
+
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import { Subscription } from 'rxjs';
 
-import { AppState } from 'src/app/app.state';
-import { ModalService, OfficemanService, Office, updateOfficeRequest, deleteOfficeRequest, refreshOfficesRequest } from '../../../../shared';
+import {
+  ModalService,
+  OfficemanService,
+  Office,
+} from '../../../../shared';
+import { Observable, Subscription } from 'rxjs';
+
+import * as fromOffices from './../../reducers/office.reducers';
+import * as OfficesPageActions from './../../actions/offices.actions';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-office',
@@ -16,18 +22,18 @@ import { ModalService, OfficemanService, Office, updateOfficeRequest, deleteOffi
 export class OfficeComponent implements OnInit, OnDestroy {
   toggle1 = true;
   editOfficeForm: FormGroup;
-  @Input() offices: Office[];
+  offices = this.store.pipe(select(theState => theState.offices));
   officeName: string;
   @Input() count = [];
   id: string;
   @Input() staff: number;
-  subscription: Subscription;
+   subscription: Subscription;
 
   constructor(
     private router: Router,
     private modalService: ModalService,
     private readonly fb: FormBuilder,
-    private store: Store<AppState>,
+    private store: Store<fromOffices.State>,
     private OFMS: OfficemanService
   ) {
   }
@@ -41,12 +47,15 @@ export class OfficeComponent implements OnInit, OnDestroy {
       maxOccupants: new FormControl('', Validators.required),
       officeColor: new FormControl('')
     });
+    this.store.dispatch(OfficesPageActions.officesLoad());
+
 
     // This method it used to count the number of occupants
-    this.store.dispatch(refreshOfficesRequest());
-    const staff = this.store.pipe(select((theState) => theState.offices));
+    // this.store.dispatch(refreshOfficesRequest());
+    const staff = this.offices;
     this.count.length = 0;
-    this.subscription = staff.subscribe(data => {
+    // tslint:disable-next-line: deprecation
+    this.subscription = staff.subscribe((data) => {
       data.forEach((item) => {
         let counter = 0;
         if (item.staff) {
@@ -59,27 +68,26 @@ export class OfficeComponent implements OnInit, OnDestroy {
 
     });
 
-
   }
   get f(): any {
     return this.editOfficeForm.controls;
   }
   openOffice(office: Office): void {
-    this.router.navigate([`./office/${office.key}`]);
+    this.router.navigate([`./${office.key}`]);
   }
 
   saveOffice(office: Office): void {
 
     if (this.id) {
       office.key = this.id;
-      this.store.dispatch(updateOfficeRequest({ office }));
+      this.store.dispatch(OfficesPageActions.officeEdit({ office }));
     }
     this.editOfficeForm.reset();
     this.closeModal('custom-modal-2');
   }
   removeOffice(): void {
     const key = this.id;
-    this.store.dispatch(deleteOfficeRequest({ key }));
+    this.store.dispatch(OfficesPageActions.officeDelete({ key }));
     this.modalService.close('custom-modal-3');
 
   }

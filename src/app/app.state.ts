@@ -1,4 +1,21 @@
-import { Office, Staff } from './shared';
+import {
+  ActionReducerMap,
+  createSelector,
+  createFeatureSelector,
+  ActionReducer,
+  MetaReducer,
+} from '@ngrx/store';
+import { environment } from '../environments/environment';
+
+export interface State {
+
+}
+
+export const reducers: ActionReducerMap<State> = {
+
+};
+
+/* import { Office, Staff } from './shared';
 
 
 export interface AppState {
@@ -6,4 +23,4 @@ export interface AppState {
     office: Office;
     staffMembers: Staff[];
     staffMember: Staff;
-}
+} */

@@ -12,6 +12,7 @@ const mockUser = { name: 'Brandon', email: 'test@example.com' };
   providedIn: 'root'
 })
 export class AuthService {
+
   public redirectUrl = '';
 
   private signedIn$: Observable<UserModel>;
@@ -50,6 +51,11 @@ export class AuthService {
       })
     );
     return result$;
+  }
+  async getUserIdToken(): Promise<Observable<string>> {
+    console.log((await this.afAuth.currentUser).getIdToken());
+
+    return from ( (await this.afAuth.currentUser).getIdToken() );
   }
   public logout(): Observable<boolean> {
     const result$ = from(this.afAuth.signOut()).pipe(

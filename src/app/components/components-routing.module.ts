@@ -9,7 +9,7 @@ import { AuthGuardService } from '../services';
 
 const routes: Routes = [
   { path: '', component: OfficeListComponent, canActivate: [AuthGuardService]},
-  { path: 'office/:id', component: OfficeDetailsComponent, canActivate: [AuthGuardService]}
+  { path: ':id', component: OfficeDetailsComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

@@ -1,14 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Staff } from 'src/app/models/staff.model';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/services/modal.service';
 import { OfficemanService } from 'src/app/services/officeman/officeman.service';
 import { Office } from 'src/app/models/office.model';
 import { addStaffRequest, deleteStaffRequest, NotifyService, refreshStaffMembersRequest, updateStaffRequest } from 'src/app/shared';
-import { AppState } from 'src/app/app.state';
+import * as AppState from './../reducers/staff.reducer';
 import { Store, select } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class StaffComponent implements OnInit, OnDestroy {
   staffForm: FormGroup;
   staffName: string;
   staff: Staff;
-  filteredData = this.store.pipe(select(theState => theState.staffMembers));
+  filteredData: Observable<Staff[]>;
   id: string;
   @Input() office: Office = null;
   sub: Subscription;
@@ -37,7 +37,7 @@ export class StaffComponent implements OnInit, OnDestroy {
     private officeManService: OfficemanService,
     private notify: NotifyService,
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState.State>
   ) {
     this.id = route.snapshot.params.id;
   }
@@ -47,7 +47,15 @@ export class StaffComponent implements OnInit, OnDestroy {
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required)
     });
-    this.sub = this.filteredData.subscribe(data => this.staffMembers = this.buffer = data);
+    // this.offices$ = this.store.pipe(select(theState => theState.offices));
+    // tslint:disable-next-line: deprecation
+    this.filteredData = this.store.pipe(select(theState => theState.staff));
+
+    // tslint:disable-next-line: deprecation
+    this.sub = this.filteredData.subscribe(data => {
+      this.staffMembers = this.buffer = data;
+    });
+
 
     this.store.dispatch(refreshStaffMembersRequest({ key: this.id }));
 
